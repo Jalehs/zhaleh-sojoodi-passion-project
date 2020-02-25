@@ -31,7 +31,10 @@ namespace passion_project.Repository
                 DoctorLastName = d.DoctorLastName,
                 Speciality = d.Speciality,
                 ImageUrl = d.DoctorImageUrl,
-                DoctorPhoneNumber = d.DoctorPhoneNumber
+                DoctorPhoneNumber = d.DoctorPhoneNumber,
+                DoctorEmailAddress = d.DoctorEmailAddress,
+                RoomNumber = d.RoomNumber,
+                Biography = d.Biography
             });
         }
 
@@ -72,5 +75,31 @@ namespace passion_project.Repository
             }
 
         }
+
+        public Doctor GetDoctor(int id)
+        {
+            return _context.Doctor.FirstOrDefault(d => d.DoctorId == id);
+        } 
+
+        public bool Update(int id, DoctorCreateVM doctorModel)
+        {
+            var doctor = GetDoctor(id);
+            try
+            {
+                doctor.DoctorPhoneNumber = doctorModel.DoctorPhoneNumber;
+                doctor.DoctorEmailAddress = doctorModel.DoctorEmailAddress;
+                doctor.RoomNumber = doctorModel.RoomNumber;
+                doctor.Biography = doctorModel.Biography;
+              
+                _context.Update(doctor);
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
     }
 }
