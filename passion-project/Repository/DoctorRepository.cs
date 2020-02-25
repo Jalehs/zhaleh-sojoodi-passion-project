@@ -100,6 +100,23 @@ namespace passion_project.Repository
                 return false;
             }
         }
-        
+
+        public DoctorIndexVM Details(int id)
+        {
+            var doctor = GetDoctor(id);
+            DoctorIndexVM doctorModel = new DoctorIndexVM
+            {
+                DoctorId = doctor.DoctorId,
+                DoctorFirstName = doctor.DoctorFirstName,
+                DoctorLastName = doctor.DoctorLastName,
+                Speciality = doctor.Speciality,
+                ImageUrl = doctor.DoctorImageUrl,
+                DoctorPhoneNumber = doctor.DoctorPhoneNumber,
+                DoctorEmailAddress = doctor.DoctorEmailAddress,
+                RoomNumber = doctor.RoomNumber,
+                Biography = doctor.Biography
+            };
+            return doctorModel;
+        }
     }
 }

@@ -87,9 +87,12 @@ namespace passion_project.Controllers
             return View(doctorModel);
         }
 
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            DoctorRepository doctorRepo = new DoctorRepository(_context, _hostingEnviroment);
+            return View(doctorRepo.Details(id));
+        }
+
     }
-
-
-
-
-    }
+ }
