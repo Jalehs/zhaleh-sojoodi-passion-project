@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
-using passion_project.Data;
+using passion_project.Model;
 using passion_project.Repository;
 using passion_project.ViewModel;
 
@@ -37,7 +37,7 @@ namespace passion_project.Controllers
             DoctorRepository doctorRepo = new DoctorRepository(_context, _hostingEnviroment);
             if (ModelState.IsValid)
             {
-                if(doctorRepo.Create(doctorModel))
+                if (doctorRepo.Create(doctorModel))
                 {
                     return View(nameof(Index));
                 }

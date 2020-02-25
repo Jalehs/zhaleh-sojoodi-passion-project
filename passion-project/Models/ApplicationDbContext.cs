@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using passion_project.Models.AppointmentSystem;
 using passion_project.ViewModel;
 
-namespace passion_project.Data
+namespace passion_project.Model
 {
     public class ApplicationDbContext : DbContext
     {
@@ -14,7 +14,7 @@ namespace passion_project.Data
             : base(options)
         {
         }
-        public DbSet<passion_project.Models.AppointmentSystem.Patient> Patient { get; set; }
+
 
         public virtual DbSet<Appointment> Appointment { get; set; }
         public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
@@ -26,12 +26,9 @@ namespace passion_project.Data
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Doctor> Doctor { get; set; }
         public virtual DbSet<DoctorPatient> DoctorPatient { get; set; }
-        public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<Patient> Patient { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
 
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -282,6 +279,8 @@ namespace passion_project.Data
             });
         }
 
-       
+
+
+        public DbSet<passion_project.ViewModel.DoctorIndexVM> DoctorIndexVM { get; set; }
     }
 }

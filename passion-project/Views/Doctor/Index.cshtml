@@ -40,38 +40,40 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DoctorFirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DoctorLastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Speciality)
-            </td>
-            <td>
-                <img alt="doctor-photo" src="@Url.Content(item.ImageUrl)" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DoctorPhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DoctorEmailAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Biography)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DoctorId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DoctorId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DoctorId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoctorFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoctorLastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Speciality)
+                </td>
+                <td>
+                    <img alt="doctor-photo" src="@Url.Content(item.ImageUrl)" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoctorPhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoctorEmailAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Biography)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.DoctorId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.DoctorId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.DoctorId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+

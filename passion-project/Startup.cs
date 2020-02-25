@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using passion_project.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using passion_project.Model;
 
 namespace passion_project
 {
