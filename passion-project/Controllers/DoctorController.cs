@@ -91,7 +91,45 @@ namespace passion_project.Controllers
         public IActionResult Details(int id)
         {
             DoctorRepository doctorRepo = new DoctorRepository(_context, _hostingEnviroment);
+            if (doctorRepo.Details(id) == null)
+            {
+                return NotFound();
+            }
             return View(doctorRepo.Details(id));
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            DoctorRepository doctorRepo = new DoctorRepository(_context, _hostingEnviroment);
+            var doctor = doctorRepo.GetDoctor(id);
+            DoctorIndexVM doctorModel = new DoctorIndexVM
+            {
+                DoctorId = doctor.DoctorId,
+                DoctorFirstName = doctor.DoctorFirstName,
+                DoctorLastName = doctor.DoctorLastName
+            };
+            return View(doctorModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(DoctorIndexVM doctorModel)
+        {
+            DoctorRepository doctorRepo = new DoctorRepository(_context, _hostingEnviroment);
+            if (doctorModel == null)
+            {
+                return NotFound();
+            }
+            if(doctorRepo.Delete(doctorModel))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(doctorModel);
         }
 
     }

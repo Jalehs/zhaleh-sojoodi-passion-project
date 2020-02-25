@@ -118,5 +118,21 @@ namespace passion_project.Repository
             };
             return doctorModel;
         }
+
+        public bool Delete(DoctorIndexVM doctorModel)
+        {
+            Doctor doctor = GetDoctor(doctorModel.DoctorId);
+            try
+            {
+                _context.Remove(doctor);
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
     }
 }
