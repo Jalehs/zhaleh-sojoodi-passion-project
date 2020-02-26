@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting.Internal;
-using passion_project.Data;
+using Microsoft.AspNetCore.Http;
 using passion_project.Model;
 using passion_project.Models.AppointmentSystem;
 using passion_project.ViewModel;
@@ -51,8 +51,9 @@ namespace passion_project.Repository
                     DoctorPhoneNumber = doctorModel.DoctorPhoneNumber,
                     DoctorEmailAddress = doctorModel.DoctorEmailAddress,
                     RoomNumber = doctorModel.RoomNumber,
-                    Biography = doctorModel.Biography
+                    Biography = doctorModel.Biography, 
                 };
+
 
                 if (doctorModel.ImageFile != null && doctorModel.ImageFile.Length > 0)
                 {
