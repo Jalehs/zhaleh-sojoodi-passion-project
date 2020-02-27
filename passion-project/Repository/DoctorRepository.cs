@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Hosting.Internal;
-using passion_project.Data;
 using passion_project.Model;
 using passion_project.Models.AppointmentSystem;
 using passion_project.ViewModel;
@@ -56,14 +55,14 @@ namespace passion_project.Repository
 
                 if (doctorModel.ImageFile != null && doctorModel.ImageFile.Length > 0)
                 {
-                    var uploadDir = "@images/doctor";
+                    var uploadDir = @"/images/doctor/";
                     var fileName = Path.GetFileNameWithoutExtension(doctorModel.ImageFile.FileName);
                     var extention = Path.GetExtension(doctorModel.ImageFile.FileName);
-                    var webRootPath = _hostingEnviroment.WebRootPath;
-                    fileName = DateTime.UtcNow.ToString("yymmdd") + fileName + extention;
-                    var path = Path.Combine(webRootPath, uploadDir, fileName);
+
+                    fileName = DateTime.UtcNow.ToString("yymmssfff") + fileName + extention;
+                    var path = Path.Combine(_hostingEnviroment.WebRootPath, uploadDir.TrimStart(new char[] { '\\', '/' }), fileName);
                     doctorModel.ImageFile.CopyToAsync(new FileStream(path, FileMode.Create));
-                    doctor.DoctorImageUrl = "/" + uploadDir + "/" + fileName;
+                    doctor.DoctorImageUrl = "/" + uploadDir.TrimStart(new char[] { '\\', '/' }) + "/" + fileName;
                 }
                 _context.Add(doctor);
                 _context.SaveChanges();

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -17,6 +17,8 @@
 
 
   <ItemGroup>
+    <Folder Include="images\doctor\" />
+    <Folder Include="UploadedFile\" />
     <Folder Include="wwwroot\images\doctor\" />
   </ItemGroup>
 
