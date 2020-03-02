@@ -49,10 +49,6 @@ namespace passion_project.Controllers
 
         public IActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
             DoctorRepository doctorRepo = new DoctorRepository(_context, _hostingEnviroment);
             var doctor = doctorRepo.GetDoctor(id);
             if (doctor == null)

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using passion_project.Models.AppointmentSystem;
 using passion_project.ViewModel;
+using passion_project.ViewModel.Patient;
 
 namespace passion_project.Model
 {
@@ -282,5 +283,13 @@ namespace passion_project.Model
 
 
         public DbSet<passion_project.ViewModel.DoctorIndexVM> DoctorIndexVM { get; set; }
+
+
+
+        public DbSet<passion_project.ViewModel.Patient.PatientIndexVM> PatientIndexVM { get; set; }
+
+
+
+        public DbSet<passion_project.ViewModel.Patient.PatientCreateVM> PatientCreateVM { get; set; }
     }
 }

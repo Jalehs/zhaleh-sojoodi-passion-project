@@ -1,0 +1,66 @@
+﻿@model passion_project.ViewModel.Patient.PatientCreateVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PatientCreateVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PatientId" />
+            <div class="form-group">
+                <label asp-for="PatientFirstName" class="control-label"></label>
+                <input asp-for="PatientFirstName" class="form-control" />
+                <span asp-validation-for="PatientFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientLastName" class="control-label"></label>
+                <input asp-for="PatientLastName" class="form-control"  />
+                <span asp-validation-for="PatientLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phn" class="control-label"></label>
+                <input asp-for="Phn" class="form-control"  />
+                <span asp-validation-for="Phn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientPhoneNumber" class="control-label"></label>
+                <input asp-for="PatientPhoneNumber" class="form-control" />
+                <span asp-validation-for="PatientPhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientEmailAddress" class="control-label"></label>
+                <input asp-for="PatientEmailAddress" class="form-control" />
+                <span asp-validation-for="PatientEmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientAddress" class="control-label"></label>
+                <input asp-for="PatientAddress" class="form-control" />
+                <span asp-validation-for="PatientAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientCity" class="control-label"></label>
+                <input asp-for="PatientCity" class="form-control" />
+                <span asp-validation-for="PatientCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientPostalCode" class="control-label"></label>
+                <input asp-for="PatientPostalCode" class="form-control" />
+                <span asp-validation-for="PatientPostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

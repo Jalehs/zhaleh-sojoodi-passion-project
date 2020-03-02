@@ -17,8 +17,6 @@
 
 
   <ItemGroup>
-    <Folder Include="images\doctor\" />
-    <Folder Include="UploadedFile\" />
     <Folder Include="wwwroot\images\doctor\" />
   </ItemGroup>
 
