@@ -9,71 +9,29 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DoctorFirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DoctorLastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Speciality)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DoctorPhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DoctorEmailAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Biography)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+
+<div class="container">
+    <div class="row">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DoctorFirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DoctorLastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Speciality)
-                </td>
-                <td>
-                    <img alt="doctor-photo" src="@Url.Content(item.ImageUrl)" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DoctorPhoneNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DoctorEmailAddress)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RoomNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Biography)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.DoctorId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.DoctorId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.DoctorId">Delete</a>
-                </td>
-            </tr>
+            <div class="col-md-6 col-sm-12">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="@Url.Content(item.ImageUrl)" class="card-img" alt="doctor-photo" style="height: 220px;"/>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.DoctorFirstName @item.DoctorLastName </h5>
+                            <p class="card-text">Speciality : @item.Speciality</p>
+                            <p class="card-text">Phone :  @item.DoctorPhoneNumber</p>
+                            <a asp-action="Details" asp-route-id="@item.DoctorId" class="btn btn-primary">More Information</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+    </div>
 
