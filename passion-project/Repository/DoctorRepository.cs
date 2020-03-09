@@ -15,6 +15,12 @@ namespace passion_project.Repository
     {
         private readonly ApplicationDbContext _context;
         private readonly HostingEnvironment _hostingEnviroment;
+
+        public DoctorRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public DoctorRepository(ApplicationDbContext context, HostingEnvironment hostingEnviroment)
         {
             _context = context;
