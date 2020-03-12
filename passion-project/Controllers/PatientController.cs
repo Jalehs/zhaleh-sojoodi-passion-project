@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,28 +14,29 @@ using passion_project.ViewModel.Patient;
 
 namespace passion_project.Controllers
 {
+    [Authorize]
     public class PatientController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly HostingEnvironment _hostingEnviroment;
 
-        public PatientController(ApplicationDbContext context, HostingEnvironment hostingEnviroment)
+
+        public PatientController(ApplicationDbContext context)
         {
             _context = context;
-            _hostingEnviroment = hostingEnviroment;
         }
 
         // GET: Patients
+        
         public IActionResult Index()
         {
-            PatientRepository patientRepo = new PatientRepository(_context, _hostingEnviroment);
+            PatientRepository patientRepo = new PatientRepository(_context);
             return View(patientRepo.GetAll());
         }
 
         // GET: Patients/Details/5
         public IActionResult Details(int id)
         {
-            PatientRepository patientRepo = new PatientRepository(_context, _hostingEnviroment);
+            PatientRepository patientRepo = new PatientRepository(_context);
             if (patientRepo.Details(id) == null)
             {
                 return NotFound();
@@ -46,7 +48,22 @@ namespace passion_project.Controllers
         // GET: Patients/Create
         public IActionResult Create()
         {
-            return View();
+            var userName = User.Identity.Name;
+            if (User.IsInRole("Admin"))
+            {
+                return View();
+            }
+            else
+            {
+                PatientCreateVM patientModel = new PatientCreateVM
+                {
+                    
+                    PatientEmailAddress = userName
+                   
+                };
+                return View(patientModel);
+ 
+            }
         }
 
         // POST: Patients/Create
@@ -54,7 +71,7 @@ namespace passion_project.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(PatientCreateVM patientModel)
         {
-            PatientRepository patientRepo = new PatientRepository(_context, _hostingEnviroment);
+            PatientRepository patientRepo = new PatientRepository(_context);
             if (ModelState.IsValid)
             {
                 if (patientRepo.CreatePatient(patientModel))
@@ -69,7 +86,7 @@ namespace passion_project.Controllers
         // GET: Patients/Edit/5
         public IActionResult Edit(int id)
         {
-            PatientRepository patientRepo = new PatientRepository(_context, _hostingEnviroment);
+            PatientRepository patientRepo = new PatientRepository(_context);
             var patient = patientRepo.GetPatient(id);
             if (patient == null)
             {
@@ -95,26 +112,22 @@ namespace passion_project.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, PatientCreateVM patientModel)
         {
-            PatientRepository patientRepo = new PatientRepository(_context, _hostingEnviroment);
+            PatientRepository patientRepo = new PatientRepository(_context);
             if (id != patientModel.PatientId)
             {
                 return NotFound();
             }
-
-           
-                if (patientRepo.Update(id, patientModel))
-                {
-                    return RedirectToAction("Index");
-                }
-
-        
+            if (patientRepo.Update(id, patientModel))
+            {
+                return RedirectToAction("Index");
+            }
             return View(patientModel);
         }
 
         // GET: Patients/Delete/5
         public IActionResult Delete(int id)
         {
-            PatientRepository patientRepo = new PatientRepository(_context, _hostingEnviroment);
+            PatientRepository patientRepo = new PatientRepository(_context);
             var patient = patientRepo.GetPatient(id);
             if (patient == null)
             {
@@ -134,7 +147,7 @@ namespace passion_project.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(PatientIndexVM patientModel)
         {
-            PatientRepository patientRepo = new PatientRepository(_context, _hostingEnviroment);
+            PatientRepository patientRepo = new PatientRepository(_context);
             if(patientRepo.Delete(patientModel))
             {
                 return RedirectToAction(nameof(Index));

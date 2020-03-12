@@ -13,12 +13,10 @@ namespace passion_project.Repository
     public class PatientRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly HostingEnvironment _hostingEnviroment;
 
-        public PatientRepository(ApplicationDbContext context, HostingEnvironment hostingEnviroment)
+        public PatientRepository(ApplicationDbContext context)
         {
             _context = context;
-            _hostingEnviroment = hostingEnviroment;
         }
         public IEnumerable<PatientIndexVM> GetAll()
         {
