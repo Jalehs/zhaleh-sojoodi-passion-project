@@ -26,13 +26,12 @@ namespace passion_project.Controllers
         }
 
         // GET: Patients
-        
         public IActionResult Index()
         {
             PatientRepository patientRepo = new PatientRepository(_context);
-            return View(patientRepo.GetAll());
+            return View(patientRepo.GetAll());           
         }
-
+        
         // GET: Patients/Details/5
         public IActionResult Details(int id)
         {
@@ -125,6 +124,7 @@ namespace passion_project.Controllers
         }
 
         // GET: Patients/Delete/5
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             PatientRepository patientRepo = new PatientRepository(_context);
@@ -145,6 +145,7 @@ namespace passion_project.Controllers
         // POST: Patients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(PatientIndexVM patientModel)
         {
             PatientRepository patientRepo = new PatientRepository(_context);

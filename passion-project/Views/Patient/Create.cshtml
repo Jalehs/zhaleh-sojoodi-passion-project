@@ -42,14 +42,21 @@
                 <input asp-for="PatientPhoneNumber" class="form-control" />
                 <span asp-validation-for="PatientPhoneNumber" class="text-danger"></span>
             </div>
-            @if (!User.IsInRole("Amin"))
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="form-group">
+                    <label asp-for="PatientEmailAddress" class="control-label"></label>
+                    <input asp-for="PatientEmailAddress" class="form-control"  />
+                    <span asp-validation-for="PatientEmailAddress" class="text-danger"></span>
+                </div>
+            }
+            else
             {
                 <div class="form-group">
                     <label asp-for="PatientEmailAddress" class="control-label"></label>
                     <input asp-for="PatientEmailAddress" class="form-control" disabled />
                     <span asp-validation-for="PatientEmailAddress" class="text-danger"></span>
                 </div>
-
             }
             <div class="form-group">
                 <label asp-for="PatientAddress" class="control-label"></label>
