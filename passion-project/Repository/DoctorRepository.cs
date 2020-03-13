@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting.Internal;
-using passion_project.Model;
-using passion_project.Models.AppointmentSystem;
+using passion_project.Models.HealthCenter;
 using passion_project.ViewModel;
 using System;
 using System.Collections.Generic;

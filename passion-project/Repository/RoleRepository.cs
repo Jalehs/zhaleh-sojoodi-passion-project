@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using passion_project.Model;
+using passion_project.Models.HealthCenter;
 using passion_project.ViewModel.Identity;
 using System;
 using System.Collections.Generic;

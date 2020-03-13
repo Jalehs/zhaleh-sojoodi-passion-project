@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using passion_project.Model;
+using passion_project.Models.HealthCenter;
 
 namespace passion_project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200226195557_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200313013008_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,35 +21,31 @@ namespace passion_project.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.Appointment", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.Property<int>("AppointmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("appointment_id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("AppointmentDate")
-                        .HasColumnName("appointment_date")
-                        .HasColumnType("date");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
 
-                    b.Property<string>("AppointmentSummery")
-                        .HasColumnName("appointment_summery")
-                        .HasColumnType("text");
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
 
-                    b.Property<TimeSpan?>("AppointmentTime")
-                        .HasColumnName("appointment_time");
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
 
-                    b.Property<int?>("DoctorPatientId")
-                        .HasColumnName("doctor_patient_id");
+                    b.HasKey("Id");
 
-                    b.HasKey("AppointmentId");
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.HasIndex("DoctorPatientId");
-
-                    b.ToTable("Appointment");
+                    b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.AspNetRoleClaims", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,105 +65,15 @@ namespace passion_project.Migrations
                     b.ToTable("AspNetRoleClaims");
                 });
 
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.AspNetRoles", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
-                    b.Property<string>("Id");
-
-                    b.Property<string>("ConcurrencyStamp");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("([NormalizedName] IS NOT NULL)");
-
-                    b.ToTable("AspNetRoles");
-                });
-
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.AspNetUserClaims", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClaimType");
-
-                    b.Property<string>("ClaimValue");
-
-                    b.Property<string>("UserId")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims");
-                });
-
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.AspNetUserLogins", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("ProviderDisplayName");
-
-                    b.Property<string>("UserId")
-                        .IsRequired();
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins");
-                });
-
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.AspNetUserRoles", b =>
-                {
-                    b.Property<string>("UserId");
-
-                    b.Property<string>("RoleId");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles");
-                });
-
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.AspNetUserTokens", b =>
-                {
-                    b.Property<string>("UserId");
-
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Value");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.AspNetUsers", b =>
-                {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("ConcurrencyStamp");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -205,12 +111,115 @@ namespace passion_project.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasName("UserNameIndex")
-                        .HasFilter("([NormalizedUserName] IS NOT NULL)");
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.Doctor", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("ProviderDisplayName");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("passion_project.Models.HealthCenter.Appointment", b =>
+                {
+                    b.Property<int>("AppointmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("appointment_id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("AppointmentDate")
+                        .HasColumnName("appointment_date")
+                        .HasColumnType("date");
+
+                    b.Property<string>("AppointmentSummery")
+                        .HasColumnName("appointment_summery")
+                        .HasColumnType("text");
+
+                    b.Property<TimeSpan?>("AppointmentTime")
+                        .HasColumnName("appointment_time");
+
+                    b.Property<int?>("DoctorId")
+                        .HasColumnName("doctor_id");
+
+                    b.Property<int?>("PatientId")
+                        .HasColumnName("patient_id");
+
+                    b.HasKey("AppointmentId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Appointment");
+                });
+
+            modelBuilder.Entity("passion_project.Models.HealthCenter.Doctor", b =>
                 {
                     b.Property<int>("DoctorId")
                         .ValueGeneratedOnAdd()
@@ -259,29 +268,7 @@ namespace passion_project.Migrations
                     b.ToTable("Doctor");
                 });
 
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.DoctorPatient", b =>
-                {
-                    b.Property<int>("DoctorPatientId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("doctor_patient_id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("DoctorId")
-                        .HasColumnName("doctor_id");
-
-                    b.Property<int?>("PatientId")
-                        .HasColumnName("patient_id");
-
-                    b.HasKey("DoctorPatientId");
-
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("DoctorPatient");
-                });
-
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.Patient", b =>
+            modelBuilder.Entity("passion_project.Models.HealthCenter.Patient", b =>
                 {
                     b.Property<int>("PatientId")
                         .ValueGeneratedOnAdd()
@@ -349,101 +336,62 @@ namespace passion_project.Migrations
                     b.ToTable("Patient");
                 });
 
-            modelBuilder.Entity("passion_project.ViewModel.DoctorIndexVM", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.Property<int>("DoctorId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Biography");
-
-                    b.Property<string>("DoctorEmailAddress");
-
-                    b.Property<string>("DoctorFirstName")
-                        .IsRequired();
-
-                    b.Property<string>("DoctorLastName")
-                        .IsRequired();
-
-                    b.Property<string>("DoctorPhoneNumber")
-                        .IsRequired();
-
-                    b.Property<string>("ImageUrl");
-
-                    b.Property<int?>("RoomNumber")
-                        .IsRequired();
-
-                    b.Property<string>("Speciality");
-
-                    b.HasKey("DoctorId");
-
-                    b.ToTable("DoctorIndexVM");
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.Appointment", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("passion_project.Models.AppointmentSystem.DoctorPatient", "DoctorPatient")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("passion_project.Models.HealthCenter.Appointment", b =>
+                {
+                    b.HasOne("passion_project.Models.HealthCenter.Doctor", "Doctor")
                         .WithMany("Appointment")
-                        .HasForeignKey("DoctorPatientId")
-                        .HasConstraintName("FK__Appointme__docto__2C3393D0");
-                });
-
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.AspNetRoleClaims", b =>
-                {
-                    b.HasOne("passion_project.Models.AppointmentSystem.AspNetRoles", "Role")
-                        .WithMany("AspNetRoleClaims")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.AspNetUserClaims", b =>
-                {
-                    b.HasOne("passion_project.Models.AppointmentSystem.AspNetUsers", "User")
-                        .WithMany("AspNetUserClaims")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.AspNetUserLogins", b =>
-                {
-                    b.HasOne("passion_project.Models.AppointmentSystem.AspNetUsers", "User")
-                        .WithMany("AspNetUserLogins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.AspNetUserRoles", b =>
-                {
-                    b.HasOne("passion_project.Models.AppointmentSystem.AspNetRoles", "Role")
-                        .WithMany("AspNetUserRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("passion_project.Models.AppointmentSystem.AspNetUsers", "User")
-                        .WithMany("AspNetUserRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.AspNetUserTokens", b =>
-                {
-                    b.HasOne("passion_project.Models.AppointmentSystem.AspNetUsers", "User")
-                        .WithMany("AspNetUserTokens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("passion_project.Models.AppointmentSystem.DoctorPatient", b =>
-                {
-                    b.HasOne("passion_project.Models.AppointmentSystem.Doctor", "Doctor")
-                        .WithMany("DoctorPatient")
                         .HasForeignKey("DoctorId")
-                        .HasConstraintName("FK__DoctorPat__docto__286302EC");
+                        .HasConstraintName("FK__Appointme__docto__286302EC");
 
-                    b.HasOne("passion_project.Models.AppointmentSystem.Patient", "Patient")
-                        .WithMany("DoctorPatient")
+                    b.HasOne("passion_project.Models.HealthCenter.Patient", "Patient")
+                        .WithMany("Appointment")
                         .HasForeignKey("PatientId")
-                        .HasConstraintName("FK__DoctorPat__patie__29572725");
+                        .HasConstraintName("FK__Appointme__patie__29572725");
                 });
 #pragma warning restore 612, 618
         }

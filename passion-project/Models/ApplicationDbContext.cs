@@ -1,33 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using passion_project.Models.AppointmentSystem;
-using passion_project.ViewModel;
-using passion_project.ViewModel.Patient;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace passion_project.Model
+namespace passion_project.Models.HealthCenter
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public partial class ApplicationDbContext : IdentityDbContext
     {
+        public ApplicationDbContext()
+        {
+        }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
-
         public virtual DbSet<Appointment> Appointment { get; set; }
         public virtual DbSet<Doctor> Doctor { get; set; }
-        public virtual DbSet<DoctorPatient> DoctorPatient { get; set; }
         public virtual DbSet<Patient> Patient { get; set; }
 
-
-
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
             modelBuilder.Entity<Appointment>(entity =>
@@ -44,115 +40,20 @@ namespace passion_project.Model
 
                 entity.Property(e => e.AppointmentTime).HasColumnName("appointment_time");
 
-                entity.Property(e => e.DoctorPatientId).HasColumnName("doctor_patient_id");
+                entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
 
-                entity.HasOne(d => d.DoctorPatient)
+                entity.Property(e => e.PatientId).HasColumnName("patient_id");
+
+                entity.HasOne(d => d.Doctor)
                     .WithMany(p => p.Appointment)
-                    .HasForeignKey(d => d.DoctorPatientId)
-                    .HasConstraintName("FK__Appointme__docto__2C3393D0");
+                    .HasForeignKey(d => d.DoctorId)
+                    .HasConstraintName("FK__Appointme__docto__286302EC");
+
+                entity.HasOne(d => d.Patient)
+                    .WithMany(p => p.Appointment)
+                    .HasForeignKey(d => d.PatientId)
+                    .HasConstraintName("FK__Appointme__patie__29572725");
             });
-
-            //modelBuilder.Entity<AspNetRoleClaims>(entity =>
-            //{
-            //    entity.HasIndex(e => e.RoleId);
-
-            //    entity.Property(e => e.RoleId).IsRequired();
-
-            //    entity.HasOne(d => d.Role)
-            //        .WithMany(p => p.AspNetRoleClaims)
-            //        .HasForeignKey(d => d.RoleId);
-            //});
-
-            //modelBuilder.Entity<AspNetRoles>(entity =>
-            //{
-            //    entity.HasIndex(e => e.NormalizedName)
-            //        .HasName("RoleNameIndex")
-            //        .IsUnique()
-            //        .HasFilter("([NormalizedName] IS NOT NULL)");
-
-            //    entity.Property(e => e.Id).ValueGeneratedNever();
-
-            //    entity.Property(e => e.Name).HasMaxLength(256);
-
-            //    entity.Property(e => e.NormalizedName).HasMaxLength(256);
-            //});
-
-            //modelBuilder.Entity<AspNetUserClaims>(entity =>
-            //{
-            //    entity.HasIndex(e => e.UserId);
-
-            //    entity.Property(e => e.UserId).IsRequired();
-
-            //    entity.HasOne(d => d.User)
-            //        .WithMany(p => p.AspNetUserClaims)
-            //        .HasForeignKey(d => d.UserId);
-            //});
-
-            //modelBuilder.Entity<AspNetUserLogins>(entity =>
-            //{
-            //    entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
-
-            //    entity.HasIndex(e => e.UserId);
-
-            //    entity.Property(e => e.LoginProvider).HasMaxLength(128);
-
-            //    entity.Property(e => e.ProviderKey).HasMaxLength(128);
-
-            //    entity.Property(e => e.UserId).IsRequired();
-
-            //    entity.HasOne(d => d.User)
-            //        .WithMany(p => p.AspNetUserLogins)
-            //        .HasForeignKey(d => d.UserId);
-            //});
-
-            //modelBuilder.Entity<AspNetUserRoles>(entity =>
-            //{
-            //    entity.HasKey(e => new { e.UserId, e.RoleId });
-
-            //    entity.HasIndex(e => e.RoleId);
-
-            //    entity.HasOne(d => d.Role)
-            //        .WithMany(p => p.AspNetUserRoles)
-            //        .HasForeignKey(d => d.RoleId);
-
-            //    entity.HasOne(d => d.User)
-            //        .WithMany(p => p.AspNetUserRoles)
-            //        .HasForeignKey(d => d.UserId);
-            //});
-
-            //modelBuilder.Entity<AspNetUserTokens>(entity =>
-            //{
-            //    entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
-
-            //    entity.Property(e => e.LoginProvider).HasMaxLength(128);
-
-            //    entity.Property(e => e.Name).HasMaxLength(128);
-
-            //    entity.HasOne(d => d.User)
-            //        .WithMany(p => p.AspNetUserTokens)
-            //        .HasForeignKey(d => d.UserId);
-            //});
-
-            //modelBuilder.Entity<AspNetUsers>(entity =>
-            //{
-            //    entity.HasIndex(e => e.NormalizedEmail)
-            //        .HasName("EmailIndex");
-
-            //    entity.HasIndex(e => e.NormalizedUserName)
-            //        .HasName("UserNameIndex")
-            //        .IsUnique()
-            //        .HasFilter("([NormalizedUserName] IS NOT NULL)");
-
-            //    entity.Property(e => e.Id).ValueGeneratedNever();
-
-            //    entity.Property(e => e.Email).HasMaxLength(256);
-
-            //    entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
-
-            //    entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
-
-            //    entity.Property(e => e.UserName).HasMaxLength(256);
-            //});
 
             modelBuilder.Entity<Doctor>(entity =>
             {
@@ -193,25 +94,6 @@ namespace passion_project.Model
                     .HasColumnName("speciality")
                     .HasMaxLength(50)
                     .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<DoctorPatient>(entity =>
-            {
-                entity.Property(e => e.DoctorPatientId).HasColumnName("doctor_patient_id");
-
-                entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
-
-                entity.Property(e => e.PatientId).HasColumnName("patient_id");
-
-                entity.HasOne(d => d.Doctor)
-                    .WithMany(p => p.DoctorPatient)
-                    .HasForeignKey(d => d.DoctorId)
-                    .HasConstraintName("FK__DoctorPat__docto__286302EC");
-
-                entity.HasOne(d => d.Patient)
-                    .WithMany(p => p.DoctorPatient)
-                    .HasForeignKey(d => d.PatientId)
-                    .HasConstraintName("FK__DoctorPat__patie__29572725");
             });
 
             modelBuilder.Entity<Patient>(entity =>
@@ -274,17 +156,5 @@ namespace passion_project.Model
                 entity.Property(e => e.Phn).HasColumnName("phn");
             });
         }
-
-
-
-        public DbSet<passion_project.ViewModel.DoctorIndexVM> DoctorIndexVM { get; set; }
-
-
-
-        public DbSet<passion_project.ViewModel.Patient.PatientIndexVM> PatientIndexVM { get; set; }
-
-
-
-        public DbSet<passion_project.ViewModel.Patient.PatientCreateVM> PatientCreateVM { get; set; }
     }
 }

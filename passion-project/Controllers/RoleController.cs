@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using passion_project.Model;
+using passion_project.Models.HealthCenter;
 using passion_project.Repository;
 
 namespace passion_project.Controllers

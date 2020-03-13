@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace passion_project.Models.AppointmentSystem
+namespace passion_project.Models.HealthCenter
 {
     public partial class Doctor
     {
         public Doctor()
         {
-            DoctorPatient = new HashSet<DoctorPatient>();
+            Appointment = new HashSet<Appointment>();
         }
 
         public int DoctorId { get; set; }
@@ -20,6 +20,6 @@ namespace passion_project.Models.AppointmentSystem
         public int? RoomNumber { get; set; }
         public string Biography { get; set; }
 
-        public virtual ICollection<DoctorPatient> DoctorPatient { get; set; }
+        public virtual ICollection<Appointment> Appointment { get; set; }
     }
 }

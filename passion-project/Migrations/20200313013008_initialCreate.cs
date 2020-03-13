@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace passion_project.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,26 +65,6 @@ namespace passion_project.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Doctor", x => x.doctor_id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DoctorIndexVM",
-                columns: table => new
-                {
-                    DoctorId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DoctorFirstName = table.Column<string>(nullable: false),
-                    DoctorLastName = table.Column<string>(nullable: false),
-                    Speciality = table.Column<string>(nullable: true),
-                    ImageUrl = table.Column<string>(nullable: true),
-                    DoctorPhoneNumber = table.Column<string>(nullable: false),
-                    DoctorEmailAddress = table.Column<string>(nullable: true),
-                    RoomNumber = table.Column<int>(nullable: false),
-                    Biography = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DoctorIndexVM", x => x.DoctorId);
                 });
 
             migrationBuilder.CreateTable(
@@ -218,38 +198,13 @@ namespace passion_project.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DoctorPatient",
-                columns: table => new
-                {
-                    doctor_patient_id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    doctor_id = table.Column<int>(nullable: true),
-                    patient_id = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DoctorPatient", x => x.doctor_patient_id);
-                    table.ForeignKey(
-                        name: "FK__DoctorPat__docto__286302EC",
-                        column: x => x.doctor_id,
-                        principalTable: "Doctor",
-                        principalColumn: "doctor_id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK__DoctorPat__patie__29572725",
-                        column: x => x.patient_id,
-                        principalTable: "Patient",
-                        principalColumn: "patient_id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Appointment",
                 columns: table => new
                 {
                     appointment_id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    doctor_patient_id = table.Column<int>(nullable: true),
+                    doctor_id = table.Column<int>(nullable: true),
+                    patient_id = table.Column<int>(nullable: true),
                     appointment_date = table.Column<DateTime>(type: "date", nullable: true),
                     appointment_time = table.Column<TimeSpan>(nullable: true),
                     appointment_summery = table.Column<string>(type: "text", nullable: true)
@@ -258,17 +213,28 @@ namespace passion_project.Migrations
                 {
                     table.PrimaryKey("PK_Appointment", x => x.appointment_id);
                     table.ForeignKey(
-                        name: "FK__Appointme__docto__2C3393D0",
-                        column: x => x.doctor_patient_id,
-                        principalTable: "DoctorPatient",
-                        principalColumn: "doctor_patient_id",
+                        name: "FK__Appointme__docto__286302EC",
+                        column: x => x.doctor_id,
+                        principalTable: "Doctor",
+                        principalColumn: "doctor_id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK__Appointme__patie__29572725",
+                        column: x => x.patient_id,
+                        principalTable: "Patient",
+                        principalColumn: "patient_id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointment_doctor_patient_id",
+                name: "IX_Appointment_doctor_id",
                 table: "Appointment",
-                column: "doctor_patient_id");
+                column: "doctor_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointment_patient_id",
+                table: "Appointment",
+                column: "patient_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -280,7 +246,7 @@ namespace passion_project.Migrations
                 table: "AspNetRoles",
                 column: "NormalizedName",
                 unique: true,
-                filter: "([NormalizedName] IS NOT NULL)");
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -307,17 +273,7 @@ namespace passion_project.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true,
-                filter: "([NormalizedUserName] IS NOT NULL)");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DoctorPatient_doctor_id",
-                table: "DoctorPatient",
-                column: "doctor_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DoctorPatient_patient_id",
-                table: "DoctorPatient",
-                column: "patient_id");
+                filter: "[NormalizedUserName] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -341,22 +297,16 @@ namespace passion_project.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "DoctorIndexVM");
+                name: "Doctor");
 
             migrationBuilder.DropTable(
-                name: "DoctorPatient");
+                name: "Patient");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Doctor");
-
-            migrationBuilder.DropTable(
-                name: "Patient");
         }
     }
 }

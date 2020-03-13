@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using passion_project.Model;
 using passion_project.ViewModel.Identity;
 using System;
 using System.Collections.Generic;

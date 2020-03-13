@@ -5,10 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using passion_project.Model;
-using passion_project.Models.AppointmentSystem;
+using passion_project.Models.HealthCenter;
 using passion_project.Repository;
 using passion_project.ViewModel.Patient;
 
