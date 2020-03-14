@@ -10,8 +10,8 @@ using passion_project.Models.HealthCenter;
 namespace passion_project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200313013008_initialCreate")]
-    partial class initialCreate
+    [Migration("20200314211033_initialcreate")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
