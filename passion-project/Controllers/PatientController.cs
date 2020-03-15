@@ -72,7 +72,7 @@ namespace passion_project.Controllers
             {
                 if (patientRepo.CreatePatient(patientModel))
                 {
-                    return RedirectToAction(nameof(Index));
+                     return RedirectToAction(nameof(Index));
                 }
 
             }
