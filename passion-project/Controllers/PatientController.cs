@@ -58,7 +58,6 @@ namespace passion_project.Controllers
                    
                 };
                 return View(patientModel);
- 
             }
         }
 

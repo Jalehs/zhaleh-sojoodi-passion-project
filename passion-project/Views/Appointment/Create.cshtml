@@ -1,0 +1,91 @@
+﻿@model passion_project.ViewModel.Appointment.AppointmentVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>AppointmentVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="form-group">
+                    <label asp-for="PatientFirstName" class="control-label"></label>
+                    <input asp-for="PatientFirstName" class="form-control" />
+                    <span asp-validation-for="PatientFirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PatientLastName" class="control-label"></label>
+                    <input asp-for="PatientLastName" class="form-control" />
+                    <span asp-validation-for="PatientLastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PatientEmailAddress" class="control-label"></label>
+                    <input asp-for="PatientEmailAddress" class="form-control" />
+                    <span asp-validation-for="PatientEmailAddress" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="PatientEmailAddress" class="control-label"></label>
+                    <input asp-for="PatientEmailAddress" class="form-control" value="@User.Identity.Name" />
+                    <span asp-validation-for="PatientEmailAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PatientFirstName" class="control-label"></label>
+                    <input asp-for="PatientFirstName" class="form-control" value=@ViewBag.PatientFirstName />
+                    <span asp-validation-for="PatientFirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PatientLastName" class="control-label"></label>
+                    <input asp-for="PatientLastName" class="form-control" value=@ViewBag.PatientLastName />
+                    <span asp-validation-for="PatientLastName" class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="DoctorFirstName" class="control-label"></label>
+                <input asp-for="DoctorFirstName" class="form-control" />
+                <span asp-validation-for="DoctorFirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DoctorLastName" class="control-label"></label>
+                <input asp-for="DoctorLastName" class="form-control" />
+                <span asp-validation-for="DoctorLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppointmentDate" class="control-label"></label>
+                <input asp-for="AppointmentDate" class="form-control" />
+                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppointmentTime" class="control-label"></label>
+                <input asp-for="AppointmentTime" class="form-control" />
+                <span asp-validation-for="AppointmentTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppointmentSummery" class="control-label"></label>
+                <input asp-for="AppointmentSummery" class="form-control" />
+                <span asp-validation-for="AppointmentSummery" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

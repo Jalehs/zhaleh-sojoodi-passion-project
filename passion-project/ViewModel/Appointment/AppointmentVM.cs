@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,16 +10,18 @@ namespace passion_project.ViewModel.Appointment
 {
     public class AppointmentVM
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int AppointmentId { get; set; }
         [DisplayName("First Name")]
-        [Required(ErrorMessage = "First Name is required.")]
         public string PatientFirstName { get; set; }
         [DisplayName("Last Name")]
-        [Required(ErrorMessage = "Last Name is required.")]
         public string PatientLastName { get; set; }
+        [EmailAddress(ErrorMessage = "Invalid email Address")]
+        public string PatientEmailAddress { get; set; }
         [DisplayName("First Name")]
-        [Required(ErrorMessage = "First Name is required.")]
+        //[Required(ErrorMessage = "First Name is required.")]
         public string DoctorFirstName { get; set; }
-        [Required(ErrorMessage = "Last Name is required.")]
+        //[Required(ErrorMessage = "Last Name is required.")]
         [DisplayName("Last Name")]
         public string DoctorLastName { get; set; }
         [DataType(DataType.Date)]

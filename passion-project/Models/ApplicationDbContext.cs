@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using passion_project.ViewModel.Appointment;
 
 namespace passion_project.Models.HealthCenter
 {
@@ -156,5 +157,8 @@ namespace passion_project.Models.HealthCenter
                 entity.Property(e => e.Phn).HasColumnName("phn");
             });
         }
+
+       
+        public DbSet<passion_project.ViewModel.Appointment.AppointmentVM> AppointmentVM { get; set; }
     }
 }
