@@ -23,7 +23,6 @@ namespace passion_project.ViewModel.Patient
         public int? Phn { get; set; }
         public string PatientGender { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Date of Birth is required.")]
         public DateTime? PatientBirthDate { get; set; }
         [DisplayName("Phone Number")]
