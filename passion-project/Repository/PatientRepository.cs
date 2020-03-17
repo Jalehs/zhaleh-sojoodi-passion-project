@@ -16,9 +16,9 @@ namespace passion_project.Repository
         {
             _context = context;
         }
-        public IEnumerable<PatientIndexVM> GetAll()
+        public IEnumerable<PatientVM> GetAll()
         {
-            return _context.Patient.Select(p => new PatientIndexVM
+            return _context.Patient.Select(p => new PatientVM
             {
                PatientId = p.PatientId,
                PatientFirstName = p.PatientFirstName,
@@ -40,7 +40,7 @@ namespace passion_project.Repository
             return _context.Patient.Where(p => p.PatientId == id).FirstOrDefault(); 
         }
 
-        public bool CreatePatient(PatientCreateVM patientModel)
+        public bool CreatePatient(PatientVM patientModel)
         {
             try
             {
@@ -68,10 +68,10 @@ namespace passion_project.Repository
             }
         }
 
-        public PatientIndexVM Details(int id)
+        public PatientVM Details(int id)
         {
             var patient = GetPatient(id);
-            return new PatientIndexVM
+            return new PatientVM
             {
                 PatientId = patient.PatientId,
                 PatientFirstName = patient.PatientFirstName,
@@ -88,7 +88,7 @@ namespace passion_project.Repository
             };
 
         }
-        public bool Update(int id, PatientCreateVM patientModel)
+        public bool Update(int id, PatientVM patientModel)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace passion_project.Repository
             
         }
 
-        public bool Delete(PatientIndexVM patientModel)
+        public bool Delete(PatientVM patientModel)
         {
             var patient = GetPatient(patientModel.PatientId);
             try

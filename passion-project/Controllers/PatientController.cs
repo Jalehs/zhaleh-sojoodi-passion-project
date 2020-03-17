@@ -51,7 +51,7 @@ namespace passion_project.Controllers
             }
             else
             {
-                PatientCreateVM patientModel = new PatientCreateVM
+                PatientVM patientModel = new PatientVM
                 {
                     
                     PatientEmailAddress = userName
@@ -64,7 +64,7 @@ namespace passion_project.Controllers
         // POST: Patients/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(PatientCreateVM patientModel)
+        public IActionResult Create(PatientVM patientModel)
         {
             PatientRepository patientRepo = new PatientRepository(_context);
             if (ModelState.IsValid)
@@ -87,7 +87,7 @@ namespace passion_project.Controllers
             {
                 return NotFound();
             }
-            PatientCreateVM patientModel = new PatientCreateVM
+            PatientVM patientModel = new PatientVM
             {
                 PatientId = patient.PatientId,
                 PatientFirstName = patient.PatientFirstName,
@@ -105,7 +105,7 @@ namespace passion_project.Controllers
         // POST: Patients/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, PatientCreateVM patientModel)
+        public IActionResult Edit(int id, PatientVM patientModel)
         {
             PatientRepository patientRepo = new PatientRepository(_context);
             if (id != patientModel.PatientId)
@@ -129,7 +129,7 @@ namespace passion_project.Controllers
             {
                 return NotFound();
             }
-            PatientIndexVM patientModel = new PatientIndexVM
+            PatientVM patientModel = new PatientVM
             {
                 PatientId = patient.PatientId,
                 PatientFirstName = patient.PatientFirstName,
@@ -142,7 +142,7 @@ namespace passion_project.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public IActionResult Delete(PatientIndexVM patientModel)
+        public IActionResult Delete(PatientVM patientModel)
         {
             PatientRepository patientRepo = new PatientRepository(_context);
             if(patientRepo.Delete(patientModel))

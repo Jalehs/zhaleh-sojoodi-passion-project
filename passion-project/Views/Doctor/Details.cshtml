@@ -11,10 +11,12 @@
         </div>
         <div class="col">
             <h4>@Model.DoctorFirstName @Model.DoctorLastName</h4>
-            <p>@Model.Speciality<br />
+            <p>
+                @Model.Speciality<br />
             Room No. : @Model.RoomNumber<br />
             Phone Number : @Model.DoctorPhoneNumber<br />
-            Email Address : @Model.DoctorEmailAddress</p>
+            Email Address : @Model.DoctorEmailAddress
+            </p>
             <a asp-controller="Appointment" asp-action="Create" asp-route-id="@Model.DoctorId" class="btn btn-info">MAKE APPOINTMENT </a>
             <h4 style="border-bottom:1px solid grey; padding-bottom:3px;">Biography</h4>
             <p>@Model.Biography</p>

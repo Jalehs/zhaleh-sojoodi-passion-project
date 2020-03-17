@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace passion_project.ViewModel.Patient
 {
-    public class PatientCreateVM
+    public class PatientVM
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PatientId { get; set; }
@@ -24,7 +23,7 @@ namespace passion_project.ViewModel.Patient
         public int? Phn { get; set; }
         public string PatientGender { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Date of Birth is required.")]
         public DateTime? PatientBirthDate { get; set; }
         [DisplayName("Phone Number")]
@@ -36,7 +35,7 @@ namespace passion_project.ViewModel.Patient
         public string PatientAddress { get; set; }
         public string PatientCity { get; set; }
         [DisplayName("Postal Code")]
-        [RegularExpression(@"[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9]" + "[ABCEGHJKLMNPRSTVWXYZ][0-9]",
+        [RegularExpression(@"[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9]" + "[ABCEGHJKLMNPRSTVWXYZ][0-9]", 
             ErrorMessage = "This is not a valid Canadian postal code.")]
         public string PatientPostalCode { get; set; }
         public string PatientHistory { get; set; }

@@ -1,84 +1,43 @@
-﻿@model passion_project.ViewModel.Patient.PatientIndexVM
+﻿@model passion_project.ViewModel.Patient.PatientVM
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>@Model.PatientFirstName @Model.PatientLastName</h2>
+            <div></div>
+        </div>
+        <div class="card-body m-2">
+            <div class="d-flex justify-content-between mb-2">
+                <h3>Basic Information </h3><hr />
+                <a asp-action="Edit" asp-route-id="@Model.PatientId"><i class="far fa-edit" style="font-size:18px"></i></a>
+            </div>
+            <div class="card p-3 box-shadow">
+                <div class="row" style="line-height:3.8">
+                    <h6 class="col" style="line-height:3">Name : &emsp;@Model.PatientFirstName @Model.PatientLastName</h6>
+                    <h6 class="col" style="line-height:3">Health No. : &emsp;@Model.Phn</h6>
+                </div>
+                <div class="row">
+                    <h6 class="col" style="line-height:3">Date of Birth : &emsp; @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.PatientBirthDate))</h6>
+                    <h6 class="col" style="line-height:3">Gender : &emsp;@Model.PatientGender</h6>
+                </div>
+                <div class="row">
+                    <h6 class="col" style="line-height:3">Phone No. : &emsp;@Model.PatientPhoneNumber</h6>
+                    <h6 class="col" style="line-height:3">Email : &emsp;@Model.PatientEmailAddress</h6>
+                </div>
+                <div class="row">
+                    <h6 class="col" style="line-height:3">Address : &emsp; @Model.PatientAddress @Model.PatientCity   @Model.PatientPostalCode</h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <h3>Patient History</h3><hr />
+            <div class="card p-3 box-shadow">
+                <p>@Model.PatientHistory</p>
+            </div>
 
-<div>
-    <h4>PatientIndexVM</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientFirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientFirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientLastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientLastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phn)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientGender)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientGender)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientBirthDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientBirthDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientPhoneNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientPhoneNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientEmailAddress)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientEmailAddress)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientAddress)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientAddress)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientCity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientCity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientPostalCode)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientPostalCode)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientHistory)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientHistory)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.PatientId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+        </div>
+ </div>

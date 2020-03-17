@@ -68,9 +68,7 @@ namespace passion_project.Controllers
                 };
                 return View(appointmentModel);
             }
-            
-
-        }
+         }
 
         // POST: Appointment/Create
         [HttpPost]
