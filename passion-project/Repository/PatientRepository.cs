@@ -81,10 +81,10 @@ namespace passion_project.Repository
                 PatientBirthDate = patient.PatientBirthDate,
                 PatientEmailAddress = patient.PatientEmailAddress,
                 PatientPhoneNumber = patient.PatientPhoneNumber,
-                PatientAddress = patient .PatientAddress,
+                PatientAddress = patient.PatientAddress,
                 PatientCity = patient.PatientCity,
                 PatientPostalCode = patient.PatientPostalCode,
-                PatientHistory = patient.PatientPostalCode,
+                PatientHistory = patient.PatientHistory,
             };
 
         }
@@ -93,14 +93,13 @@ namespace passion_project.Repository
             try
             {
                 var patient = GetPatient(id);
-                patient.PatientFirstName = patientModel.PatientFirstName;
-                patient.PatientLastName = patientModel.PatientLastName;
                 patient.Phn = patientModel.Phn;
                 patient.PatientPhoneNumber = patientModel.PatientPhoneNumber;
                 patient.PatientEmailAddress = patientModel.PatientEmailAddress;
                 patient.PatientAddress = patientModel.PatientAddress;
                 patient.PatientCity = patientModel.PatientCity;
                 patient.PatientPostalCode = patientModel.PatientPostalCode;
+                patient.PatientHistory = patientModel.PatientHistory;
 
                 _context.Patient.Update(patient);
                 _context.SaveChanges();

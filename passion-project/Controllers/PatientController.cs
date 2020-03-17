@@ -97,7 +97,8 @@ namespace passion_project.Controllers
                 PatientEmailAddress = patient.PatientEmailAddress,
                 PatientAddress = patient.PatientAddress,
                 PatientCity = patient.PatientCity,
-                PatientPostalCode = patient.PatientPostalCode
+                PatientPostalCode = patient.PatientPostalCode,
+                PatientHistory = patient.PatientHistory
             };
             return View(patientModel);
         }
@@ -114,7 +115,7 @@ namespace passion_project.Controllers
             }
             if (patientRepo.Update(id, patientModel))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = id });
             }
             return View(patientModel);
         }
