@@ -5,15 +5,17 @@
 }
 
 <style>
-    .fa-edit{
+    .fa-edit , .fa-trash-alt{
         color:white;
+        font-size:18px;
     }
-    .row{
-        margin-bottom:80px;
+    .row {
+        margin-bottom: 80px;
     }
-    .col img{
-        display:block;
-        margin:10px auto;
+
+    .col img {
+        display: block;
+        margin: 10px auto;
     }
 </style>
 <div class="container mt-3">
@@ -26,10 +28,16 @@
                 <div class="card-header bg-info text-white">
                     <div class="d-flex justify-content-between mb-2">
                         <h4>@Model.DoctorFirstName @Model.DoctorLastName</h4>
-                        @if (User.IsInRole("Admin") || (User.Identity.Name==Model.DoctorEmailAddress))
-                        {
-                            <a asp-action="Edit" asp-route-id="@Model.DoctorId"><i class="far fa-edit" style="font-size:18px"></i></a>
-                        }
+                        <div>
+                            @if (User.IsInRole("Admin") || (User.Identity.Name == Model.DoctorEmailAddress))
+                            {
+                                <a asp-action="Edit" asp-route-id="@Model.DoctorId"><i class="far fa-edit" ></i></a>
+                            }
+                            @if (User.IsInRole("Admin")) 
+                            {
+                                <a asp-action="Delete" asp-route-id="@Model.DoctorId"><i class="fas fa-trash-alt"></i></a>
+                            }
+                        </div>
                     </div>
                 </div>
                 <div class="card-body p-3 box-shadow">

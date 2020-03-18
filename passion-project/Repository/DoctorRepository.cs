@@ -128,15 +128,16 @@ namespace passion_project.Repository
             Doctor doctor = GetDoctor(doctorModel.DoctorId);
             try
             {
-                _context.Remove(doctor);
+                _context.Doctor.Remove(doctor);
                 _context.SaveChanges();
-                return true;
+                
             }
-            catch
+            catch(Exception ex)
             {
-                return false;
+                throw ex;
             }
-            
+            return true;
+
         }
     }
 }

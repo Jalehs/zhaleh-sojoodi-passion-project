@@ -4,21 +4,32 @@
     ViewData["Title"] = "Details";
 }
 
+<style>
+    .fa-edit , .fa-trash-alt{
+        color:white;
+        font-size:18px;
+    }
+</style>
 <div class="container mt-3 mb-3">
-    <div class="card">
-        <div class="card-header">
-            <h2>@Model.PatientFirstName @Model.PatientLastName</h2>
-            <div></div>
-        </div>
-        <div class="card-body m-2">
+    <div class="card border-info">
+        <div class="card-header bg-info text-white">
             <div class="d-flex justify-content-between mb-2">
-                <h3>Basic Information </h3><hr />
-                @if (User.IsInRole("Admin") || (User.Identity.Name == Model.PatientEmailAddress))
-                {
-                    <a asp-action="Edit" asp-route-id="@Model.PatientId"><i class="far fa-edit" style="font-size:18px"></i></a>
-                }
+                <h2>@Model.PatientFirstName @Model.PatientLastName</h2>
+                <div>
+                    @if (User.IsInRole("Admin") || (User.Identity.Name == Model.PatientEmailAddress))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.PatientId"><i class="far fa-edit"></i></a>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@Model.PatientId"><i class="fas fa-trash-alt"></i></a>
+                    }
+                </div>
             </div>
-            <div class="card p-3 box-shadow">
+        </div>
+        <div class="card-body border-info m-2">
+            <h3>Basic Information </h3>
+            <div class="card border-info p-3 box-shadow">
                 <div class="row" style="line-height:3.8">
                     <h6 class="col-md-6 col-sm-12" style="line-height:3">Name : &emsp;@Model.PatientFirstName @Model.PatientLastName</h6>
                     <h6 class="col-md-6 col-sm-12" style="line-height:3">Health No. : &emsp;@Model.Phn</h6>
@@ -36,9 +47,9 @@
                 </div>
             </div>
         </div>
-        <div class="card-body">
-            <h3>Patient History</h3><hr />
-            <div class="card p-3 box-shadow">
+        <div class="card-body border-info">
+            <h3>Patient History</h3>
+            <div class="card border-info p-3 box-shadow">
                 <p>@Model.PatientHistory</p>
             </div>
 
