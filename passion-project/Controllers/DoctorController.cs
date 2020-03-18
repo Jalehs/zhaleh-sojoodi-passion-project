@@ -54,11 +54,12 @@ namespace passion_project.Controllers
             {
                 return NotFound();
             }
-            DoctorCreateVM doctorModel = new DoctorCreateVM
+            DoctorIndexVM doctorModel = new DoctorIndexVM
             {
                 DoctorId = doctor.DoctorId,
                 DoctorFirstName = doctor.DoctorFirstName,
                 DoctorLastName = doctor.DoctorLastName,
+                ImageUrl = doctor.DoctorImageUrl,
                 Speciality = doctor.Speciality,
                 DoctorPhoneNumber = doctor.DoctorPhoneNumber,
                 DoctorEmailAddress = doctor.DoctorEmailAddress,
@@ -71,15 +72,12 @@ namespace passion_project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, DoctorCreateVM doctorModel)
+        public IActionResult Edit(int id, DoctorIndexVM doctorModel)
         {
             DoctorRepository doctorRepo = new DoctorRepository(_context, _hostingEnviroment);
-            if (ModelState.IsValid)
+            if (doctorRepo.Update(id, doctorModel))
             {
-                if (doctorRepo.Update(id, doctorModel))
-                {
-                    return RedirectToAction("Index");
-                }
+                return RedirectToAction("Details", new { id = id });
             }
             return View(doctorModel);
         }

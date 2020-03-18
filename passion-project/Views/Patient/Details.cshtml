@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<div class="container mt-3">
+<div class="container mt-3 mb-3">
     <div class="card">
         <div class="card-header">
             <h2>@Model.PatientFirstName @Model.PatientLastName</h2>
@@ -13,7 +13,10 @@
         <div class="card-body m-2">
             <div class="d-flex justify-content-between mb-2">
                 <h3>Basic Information </h3><hr />
-                <a asp-action="Edit" asp-route-id="@Model.PatientId"><i class="far fa-edit" style="font-size:18px"></i></a>
+                @if (User.IsInRole("Admin") || (User.Identity.Name == Model.PatientEmailAddress))
+                {
+                    <a asp-action="Edit" asp-route-id="@Model.PatientId"><i class="far fa-edit" style="font-size:18px"></i></a>
+                }
             </div>
             <div class="card p-3 box-shadow">
                 <div class="row" style="line-height:3.8">

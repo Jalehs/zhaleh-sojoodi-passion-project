@@ -85,7 +85,7 @@ namespace passion_project.Repository
             return _context.Doctor.FirstOrDefault(d => d.DoctorId == id);
         } 
 
-        public bool Update(int id, DoctorCreateVM doctorModel)
+        public bool Update(int id, DoctorIndexVM doctorModel)
         {
             var doctor = GetDoctor(id);
             try
