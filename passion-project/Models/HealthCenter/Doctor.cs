@@ -22,4 +22,12 @@ namespace passion_project.Models.HealthCenter
 
         public virtual ICollection<Appointment> Appointment { get; set; }
     }
+
+    public enum Speciality
+    {
+        Dentists,
+        Ophthalmologists,
+        FamilyPhysicians,
+        ENTSpecialists
+    }
 }

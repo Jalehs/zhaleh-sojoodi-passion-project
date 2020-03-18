@@ -1,8 +1,82 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .heading h1 {
+        position: absolute;
+        top: 30%;
+        left: 10%;
+        text-transform: capitalize;
+    }
+    .welcome-text{
+        border:solid;
+        border-color:lightgray;
+        border-width: 5px;
+        text-align: justify;
+        padding:50px 100px 50px;
+    }
+  
+</style>
+<div class="heading" style=" position:relative;">
+    <img alt="home page pic" src="@Url.Content("/images/home1.jpg")" style="width:100%;" />
+    <h1 class="text-info">We care for your health <br />every moment</h1>
+</div>
+<div class="container">
+    <h2 class="text-center m-5">Our Departments</h2>
+    <div class="row">
+        <div class="col-md-6 col-sm-12 mb-4">
+            <div class="card border-info p-3">
+                <h3 class="card-header bg-info text-white">Dental Care</h3>
+                <p class="card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+            </div>
+        </div>
+        <div class=" col-md-6 col-sm-12 mb-4">
+            <div class="card border-info p-3">
+                <h3 class="card-header bg-info text-white">Eye Care</h3>
+                <p class="card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+            </div>
+        </div>
+        <div class=" col-md-6 col-sm-12 mb-4">
+            <div class="card border-info p-3">
+                <h3 class="card-header bg-info text-white">Family Health Care</h3>
+                <p class="card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 mb-4">
+            <div class="card border-info p-3">
+                <h3 class="card-header bg-info text-white">ENT</h3>
+                <p class="card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col">
+            <img alt="doctor-patient" src="@Url.Content("/images/doctor-patient.jpg")"/>
+        </div>
+        <div class="col welcome-text mb-5 mb-lg-0">
+            <h5>Welcome to Our Clinic</h5>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
+            </p>
+            <a asp-controller="Doctor" asp-action="Index" class="btn btn-info doctor-button">See Our Doctors</a>
+        </div>
+
+    </div>
+
 </div>

@@ -16,10 +16,21 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        footer{
+            background-color:lightgray;
+        }
+        .fa-phone-square{
+            color:blue;
+        }
+        .fa-at{
+            color:blue;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">passion_project</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -39,17 +50,33 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div>
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer>
         <div class="container">
-            &copy; 2020 - passion_project - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col">
+                    <h6>Address:</h6>
+                    <p>3308 Ash St Vancouver BC V5Z 3E3</p>
+                    <i class="fas fa-phone-square"></i> (604) 688-5225<br />
+                    <i class="fas fa-at"></i> info@healthcenter.ca
+                </div>
+                <div class="col">
+                    <h6>Opening hours:</h6>
+                    <p>Monday-Thursday 10am-6pm</p>
+                    <p>Friday,Saturday 10am-4pm</p>
+                </div>
+            </div>
+            <div class="border-top text-center p-2 pb-5">
+                &copy; 2020 - passion_project
+            </div>
         </div>
+        
     </footer>
 
     <environment include="Development">
