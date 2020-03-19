@@ -4,6 +4,35 @@
     ViewData["Title"] = "Create";
 }
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#timeAvailable').append($("<option></option>").val("placeholder").text("Select Doctor and Date"));
+        $('#timeAvailable').val("placeholder");
+        $("#timeAvailable").prop("disabled", true);
+        $("#appointmentDate").change(function () {
+            var url = window.location.pathname;
+            var id = url.substring(url.lastIndexOf('/') + 1);
+            var options = {};
+            options.url = "/Appointment/GetAvailableTime";
+            options.type = "POST";
+            options.data = { id: id , selectedDate: $("#appointmentDate").val() };
+
+       
+            options.success = function (data) {
+                data = $.map(data, function (item, a) {
+                    return "<option value=" + item + ">" + item + "</option>";
+                });
+                
+                 $("#timeAvailable").html(data.join(""));
+                 $("#timeAvailable").prop("disabled", false);
+            };
+            options.error = function () { alert("Error retrieving available appointments!"); };
+            $.ajax(options);
+        });
+    });
+</script>
+
 <h1>Create</h1>
 
 <h4>AppointmentVM</h4>
@@ -62,14 +91,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="AppointmentDate" class="control-label"></label>
-                <input asp-for="AppointmentDate" class="form-control" />
+                <input asp-for="AppointmentDate" class="form-control" id="appointmentDate" />
                 <span asp-validation-for="AppointmentDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AppointmentTime" class="control-label"></label>
-                <input asp-for="AppointmentTime" class="form-control" />
-                <span asp-validation-for="AppointmentTime" class="text-danger"></span>
+                @Html.LabelFor(model => model.AppointmentTime, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("timeAvailable", String.Empty)
+                    @Html.ValidationMessageFor(model => model.AppointmentTime)
+                </div>
             </div>
+
+
             <div class="form-group">
                 <label asp-for="AppointmentSummery" class="control-label"></label>
                 <input asp-for="AppointmentSummery" class="form-control" />

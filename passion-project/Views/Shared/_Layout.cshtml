@@ -73,15 +73,15 @@
                 </div>
                 <div class="col">
                     <h6>Opening hours:</h6>
-                    <p>Monday-Thursday 10am-6pm</p>
-                    <p>Friday,Saturday 10am-4pm</p>
+                    <p>Monday-Friday 10am-6pm</p>
+                    <p>Saturday, Sunday Close</p>
                 </div>
             </div>
             <div class="border-top text-center p-2 pb-5">
                 &copy; 2020 - passion_project
             </div>
         </div>
-        
+
     </footer>
 
     <environment include="Development">
@@ -103,9 +103,11 @@
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     @RenderSection("Scripts", required: false)
+ 
 </body>
 </html>

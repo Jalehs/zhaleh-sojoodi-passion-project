@@ -42,7 +42,11 @@ namespace passion_project.Controllers
         [HttpGet]
         public IActionResult Create(int id)
         {
+            AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
+            ViewBag.timeAvailable = new SelectList(String.Empty);
+            
             var doctor = _context.Doctor.Where(d => d.DoctorId == id).FirstOrDefault();
+
             if (User.IsInRole("Admin"))
             {
                 AppointmentVM appointmentModel = new AppointmentVM
@@ -68,7 +72,7 @@ namespace passion_project.Controllers
                 };
                 return View(appointmentModel);
             }
-         }
+        }
 
         // POST: Appointment/Create
         [HttpPost]
@@ -82,7 +86,6 @@ namespace passion_project.Controllers
                 {
                     return RedirectToAction(nameof(Index));
                 }    
-                
             }
             return View(appointmentVM);
         }
@@ -116,7 +119,6 @@ namespace passion_project.Controllers
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                if(appointmentRepo.UpdateAppointment(appointmentVM)) 
@@ -157,5 +159,13 @@ namespace passion_project.Controllers
             return View(appoitmentModel);
         }
 
+        public IEnumerable<TimeSpan> GetAvailableTime(int id, DateTime selectedDate)
+        {
+            AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
+            IEnumerable<TimeSpan> ts = appointmentRepo.GetAllTime().Except(appointmentRepo.GetAllBookedTime(id, selectedDate));
+            return ts;
+        }
+
     }
+
 }

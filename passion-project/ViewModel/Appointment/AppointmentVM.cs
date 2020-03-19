@@ -12,6 +12,7 @@ namespace passion_project.ViewModel.Appointment
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AppointmentId { get; set; }
+        public int DoctorId { get; set; }
         [DisplayName("First Name")]
         public string PatientFirstName { get; set; }
         [DisplayName("Last Name")]
@@ -27,10 +28,10 @@ namespace passion_project.ViewModel.Appointment
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Appointment Date is required.")]
-        public DateTime? AppointmentDate { get; set; }
+        public DateTime AppointmentDate { get; set; }
         [Required(ErrorMessage = "Appointment Time is required.")]
-        public TimeSpan? AppointmentTime { get; set; }
+        public TimeSpan AppointmentTime { get; set; }
         public string AppointmentSummery { get; set; }
-
+ 
     }
 }

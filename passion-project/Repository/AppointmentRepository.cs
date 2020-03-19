@@ -121,5 +121,29 @@ namespace passion_project.Repository
             }
         }
 
+        public IEnumerable<TimeSpan> GetAllTime()
+        {
+            List<TimeSpan> allTime = new List<TimeSpan>();
+            TimeSpan startTime = new TimeSpan(10, 0, 0);
+            TimeSpan endTime = new TimeSpan(18, 0, 0);
+            while (startTime < endTime)
+            {
+                allTime.Add(startTime);
+                startTime = startTime.Add(new TimeSpan(0, 30, 0));
+            }
+            return allTime;
+        }
+
+        public IEnumerable<TimeSpan> GetAllBookedTime(int id, DateTime date)
+        {
+            IEnumerable<Appointment> appointments = _context.Appointment.Where(a => a.DoctorId == id).Where(a => a.AppointmentDate == date).ToList();
+            List<TimeSpan> bookedTime = new List<TimeSpan>();
+            foreach(var app in appointments)
+            {
+                bookedTime.Add(app.AppointmentTime);
+            }
+            return bookedTime;
+
+        }
     }
 }
