@@ -1,0 +1,23 @@
+﻿@using passion_project.Models.HealthCenter
+@inject ApplicationDbContext _context
+
+@{
+    var doctor = _context.Doctor.FirstOrDefault(p => p.DoctorEmailAddress == @User.Identity.Name);
+}
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Doctor"))
+{
+    if (doctor == null)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Doctor" asp-action="Create">Profile</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Doctor" asp-action="Details" asp-route-id="@doctor.DoctorId">Profile</a>
+        </li>
+    }
+
+}

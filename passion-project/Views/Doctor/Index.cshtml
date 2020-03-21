@@ -4,18 +4,12 @@
     ViewData["Title"] = "List Of Doctors";
 }
 
-<h1>Doctors</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-<div class="container">
+<div class="container mb-5 mt-5">
     <div class="row">
         @foreach (var item in Model)
         {
             <div class="col-md-6 col-sm-12">
-            <div class="card mb-3" style="max-width: 540px;">
+            <div class="card border-info mt-3 mb-3" style="max-width: 540px;">
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <img src="@Url.Content(item.ImageUrl)" class="card-img" alt="doctor-photo" style="height: 220px;"/>
@@ -25,7 +19,7 @@
                             <h5 class="card-title">@item.DoctorFirstName @item.DoctorLastName </h5>
                             <p class="card-text">Speciality : @item.Speciality</p>
                             <p class="card-text">Phone :  @item.DoctorPhoneNumber</p>
-                            <a asp-action="Details" asp-route-id="@item.DoctorId" class="btn btn-primary">More Information</a>
+                            <a asp-action="Details" asp-route-id="@item.DoctorId" class="btn btn-info">More Information</a>
                         </div>
                     </div>
                 </div>

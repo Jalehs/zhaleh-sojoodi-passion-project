@@ -5,9 +5,16 @@
 }
 
 <style>
-    .fa-edit , .fa-trash-alt{
-        color:white;
-        font-size:18px;
+    .breadcrumb-item li{
+        font-size: 16px;
+    }
+    .breadcrumb-item a {
+        color: #5bc0de;
+    }
+
+    .fa-edit, .fa-trash-alt {
+        color: white;
+        font-size: 18px;
     }
     
     .col img {
@@ -15,7 +22,13 @@
         margin: 10px auto;
     }
 </style>
-<div class="container mt-5 mb-5">
+<div class="container mt-3 mb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white">
+            <li class="breadcrumb-item"><a asp-controller="Doctor" asp-action="Index" asp-route-id="@Model.DoctorId">Doctors</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.DoctorFirstName @Model.DoctorLastName</li>
+        </ol>
+    </nav>
     <div class="row">
         <div class="col">
             <img src="@Url.Content(Model.ImageUrl)" class="card-img" alt="doctor-photo" style=" width:400px" />
@@ -69,5 +82,5 @@
             </div>
         </div>
     </div>
-    
+
 </div>
