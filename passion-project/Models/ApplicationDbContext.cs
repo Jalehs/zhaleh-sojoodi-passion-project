@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using passion_project.ViewModel.Appointment;
+using passion_project.ViewModel.Patient;
 
 namespace passion_project.Models.HealthCenter
 {
@@ -160,5 +161,8 @@ namespace passion_project.Models.HealthCenter
 
        
         public DbSet<passion_project.ViewModel.Appointment.AppointmentVM> AppointmentVM { get; set; }
+
+       
+        public DbSet<passion_project.ViewModel.Patient.PatientVM> PatientVM { get; set; }
     }
 }

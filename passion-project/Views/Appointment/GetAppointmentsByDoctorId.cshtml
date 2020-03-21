@@ -44,8 +44,16 @@
                     @Html.DisplayFor(modelItem => item.AppointmentTime)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.AppointmentId"><i class="fas fa-edit"></i></a> |
-                    <a asp-action="Delete" asp-route-id="@item.AppointmentId"><i class="fas fa-trash-alt"></i></a>
+                    @if (!User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.AppointmentId"><i class="fas fa-edit"></i></a>
+                    }
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.AppointmentId"><i class="fas fa-trash-alt"></i></a>
+                    }
+
                 </td>
             </tr>
     }

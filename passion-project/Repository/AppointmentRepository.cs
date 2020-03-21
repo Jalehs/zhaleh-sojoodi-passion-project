@@ -97,8 +97,6 @@ namespace passion_project.Repository
             try
             {
                 var appointment = GetAppointment(appointmentModel.AppointmentId);
-                appointment.AppointmentDate = appointmentModel.AppointmentDate;
-                appointment.AppointmentTime = appointmentModel.AppointmentTime;
                 appointment.AppointmentSummery = appointmentModel.AppointmentSummery;
                 _context.Appointment.Update(appointment);
                 _context.SaveChanges();
@@ -111,9 +109,9 @@ namespace passion_project.Repository
         }
        
 
-        public bool DeleteAppointment(AppointmentVM appointmentModel)
+        public bool DeleteAppointment(int id)
         {
-            var appointment = GetAppointment(appointmentModel.AppointmentId);
+            var appointment = GetAppointment(id);
             try
             {
                 _context.Remove(appointment);

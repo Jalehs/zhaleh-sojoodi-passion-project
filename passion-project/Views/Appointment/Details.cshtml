@@ -24,7 +24,10 @@
                 <div class="d-flex justify-content-between mb-2">
                     <h4>@Model.PatientFirstName @Model.PatientLastName</h4>
                     <div>
-                        <a asp-action="Edit" asp-route-id="@Model.AppointmentId"><i class="far fa-edit"></i></a>
+                        @if (!User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model.AppointmentId"><i class="far fa-edit"></i></a>
+                        }
                         @if (User.IsInRole("Admin"))
                         {
                             <a asp-action="Delete" asp-route-id="@Model.AppointmentId"><i class="fas fa-trash-alt"></i></a>

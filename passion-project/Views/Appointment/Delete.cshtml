@@ -1,0 +1,25 @@
+﻿@model passion_project.ViewModel.Appointment.AppointmentVM
+
+<style>
+    .delete {
+        display: block;
+        margin: 210px auto;
+        padding: 50px;
+        line-height: 4;
+    }
+</style>
+
+<div class="container">
+    <div class="card border-info delete">
+        <h3>Are you sure you want to delete this appointment ? </h3>
+        <h5>Patient : @Model.PatientFirstName @Model.PatientLastName</h5>
+        <h5>Doctor : @Model.DoctorFirstName @Model.DoctorLastName</h5>
+        <h5>@Model.AppointmentDate @Model.AppointmentTime </h5>
+        <form asp-action="Delete" class="text-center">
+            <input type="hidden" asp-for="AppointmentId" />
+            <input type="submit" value="Delete" class="btn btn-info" />
+            <a asp-controller="Appointment" asp-action="GetAppointmentsByDoctorId" asp-route-id="@Model.DoctorId" class="btn btn-info">Back to List</a>
+        </form>
+    </div>
+</div>
+

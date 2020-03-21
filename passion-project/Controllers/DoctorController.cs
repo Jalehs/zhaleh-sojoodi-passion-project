@@ -122,7 +122,7 @@ namespace passion_project.Controllers
             }
             if(doctorRepo.Delete(doctorModel))
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             return View(doctorModel);
         }

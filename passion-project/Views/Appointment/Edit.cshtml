@@ -1,70 +1,55 @@
 ﻿@model passion_project.ViewModel.Appointment.AppointmentVM
 
-<h4>AppointmentVM</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<style>
+    .dropdown {
+        width: 100%;
+        border-radius: 5px;
+        padding: 10px;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white">
+            <li class="breadcrumb-item"><a asp-controller="Appointment" asp-action="GetAppointments" asp-route-id="@Model.DoctorId">Get Appointments</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.PatientFirstName @Model.PatientLastName</li>
+        </ol>
+    </nav>
+    <div class="p-3">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="AppointmentId" />
-            <div class="form-group">
-                <label asp-for="DoctorId" class="control-label"></label>
-                <input asp-for="DoctorId" class="form-control" />
-                <span asp-validation-for="DoctorId" class="text-danger"></span>
+            <div class="card-header bg-info text-white">
+                <div class="d-flex justify-content-between mb-2">
+                    <h4>@Model.PatientFirstName @Model.PatientLastName</h4>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="PatientId" class="control-label"></label>
-                <input asp-for="PatientId" class="form-control" />
-                <span asp-validation-for="PatientId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PatientFirstName" class="control-label"></label>
-                <input asp-for="PatientFirstName" class="form-control" />
-                <span asp-validation-for="PatientFirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PatientLastName" class="control-label"></label>
-                <input asp-for="PatientLastName" class="form-control" />
-                <span asp-validation-for="PatientLastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PatientEmailAddress" class="control-label"></label>
-                <input asp-for="PatientEmailAddress" class="form-control" />
-                <span asp-validation-for="PatientEmailAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DoctorFirstName" class="control-label"></label>
-                <input asp-for="DoctorFirstName" class="form-control" />
-                <span asp-validation-for="DoctorFirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DoctorLastName" class="control-label"></label>
-                <input asp-for="DoctorLastName" class="form-control" />
-                <span asp-validation-for="DoctorLastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AppointmentDate" class="control-label"></label>
-                <input asp-for="AppointmentDate" class="form-control" />
-                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AppointmentTime" class="control-label"></label>
-                <input asp-for="AppointmentTime" class="form-control" />
-                <span asp-validation-for="AppointmentTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AppointmentSummery" class="control-label"></label>
-                <input asp-for="AppointmentSummery" class="form-control" />
-                <span asp-validation-for="AppointmentSummery" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="card-body p-3 box-shadow">
+                <div class="row mt-2">
+                    <div class="col">
+                        <h6>Appointment Date: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.AppointmentDate))</h6>
+                    </div>
+                    <div class="col">
+                        <h6>Appointment Time: @Model.AppointmentTime</h6>
+                    </div>
+                </div>
+                <br /><br />
+                <div class="row">
+                    <div class="form-group col">
+                        <h6>Appointment Summary</h6>
+                        <textarea asp-for="AppointmentSummery" class="form-control" rows="3" stye="width:100%;"></textarea>
+                        <span asp-validation-for="AppointmentSummery" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-info" />
+                </div>
             </div>
         </form>
     </div>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

@@ -148,7 +148,7 @@ namespace passion_project.Controllers
             PatientRepository patientRepo = new PatientRepository(_context);
             if(patientRepo.Delete(patientModel))
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             return View(patientModel);
         }

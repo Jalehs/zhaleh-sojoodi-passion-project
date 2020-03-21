@@ -26,7 +26,7 @@ namespace passion_project.Controllers
             return View(appointmentRepo.GetAllAppointments());
         }
 
-        public IActionResult GetAppointments(int id)
+        public IActionResult GetAppointmentsByDoctorId(int id)
         {
             AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
             return View(appointmentRepo.GetAppointmentsByDoctorId(id).ToList());
@@ -100,12 +100,16 @@ namespace passion_project.Controllers
         {
             AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
             var appointment = appointmentRepo.GetAppointment(id);
+            var patient = _context.Patient.Where(p => p.PatientId == appointment.PatientId).FirstOrDefault();
             if (appointment == null)
             {
                 return NotFound();
             }
             var appointmentVM = new AppointmentVM
             {
+                DoctorId = appointment.DoctorId, 
+                PatientFirstName = patient.PatientFirstName,
+                PatientLastName = patient.PatientLastName, 
                 AppointmentId = appointment.AppointmentId,
                 AppointmentDate = appointment.AppointmentDate,
                 AppointmentTime = appointment.AppointmentTime,
@@ -120,6 +124,7 @@ namespace passion_project.Controllers
         public IActionResult Edit(int id, AppointmentVM appointmentVM)
         {
             AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
+            var appointment = appointmentRepo.GetAppointment(id);
             if (id != appointmentVM.AppointmentId)
             {
                 return NotFound();
@@ -127,7 +132,7 @@ namespace passion_project.Controllers
             if (ModelState.IsValid)
             {
                if(appointmentRepo.UpdateAppointment(appointmentVM)) 
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("GetAppointmentsByDoctorId", new { id = appointment.DoctorId});
             }
             return View(appointmentVM);
         }
@@ -137,6 +142,8 @@ namespace passion_project.Controllers
         {
             AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
             var appointment = appointmentRepo.GetAppointment(id);
+            var patient = _context.Patient.Where(p => p.PatientId == appointment.PatientId).FirstOrDefault();
+            var doctor = _context.Doctor.Where(d => d.DoctorId == appointment.DoctorId).FirstOrDefault();
             if (appointment == null)
             {
                 return NotFound();
@@ -144,9 +151,11 @@ namespace passion_project.Controllers
 
             var appointmentVM = new AppointmentVM
             {
-                PatientEmailAddress = appointment.Patient.PatientEmailAddress,
-                DoctorFirstName = appointment.Doctor.DoctorFirstName,
-                DoctorLastName = appointment.Doctor.DoctorLastName,
+                DoctorId = appointment.DoctorId,
+                PatientFirstName = patient.PatientFirstName,
+                PatientLastName = patient.PatientLastName,
+                DoctorFirstName = doctor.DoctorFirstName,
+                DoctorLastName = doctor.DoctorLastName,
                 AppointmentDate = appointment.AppointmentDate,
                 AppointmentTime = appointment.AppointmentTime
             };
@@ -156,12 +165,13 @@ namespace passion_project.Controllers
         // POST: Appointment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(AppointmentVM appoitmentModel)
+        public IActionResult DeleteConfirmed(int id)
         {
             AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
-            if(appointmentRepo.DeleteAppointment(appoitmentModel))
-                return RedirectToAction(nameof(Index));
-            return View(appoitmentModel);
+            var appointment = appointmentRepo.GetAppointment(id);
+            if (appointmentRepo.DeleteAppointment(id))
+                return RedirectToAction("GetAppointmentsByDoctorId", new { id = appointment.DoctorId });
+            return View(appointment);
         }
 
         public IEnumerable<TimeSpan> GetAvailableTime(int id, DateTime selectedDate)
