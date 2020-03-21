@@ -32,6 +32,12 @@ namespace passion_project.Controllers
             return View(appointmentRepo.GetAppointmentsByDoctorId(id).ToList());
         }
 
+        public IActionResult GetAppointmentsByPatientId(int id)
+        {
+            AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
+            return View(appointmentRepo.GetAppointmentsByPatientId(id));
+        }
+
         // GET: Appointment/Details/5
         public IActionResult Details(int id)
         {
@@ -69,6 +75,7 @@ namespace passion_project.Controllers
                 ViewBag.PatientLastName = patient.PatientLastName;
                 AppointmentVM appointmentModel = new AppointmentVM
                 {
+                    PatientId = patient.PatientId,
                     PatientEmailAddress = userName,
                     PatientFirstName = patient.PatientFirstName,
                     PatientLastName = patient.PatientLastName,
@@ -89,7 +96,15 @@ namespace passion_project.Controllers
                 AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
                 if (appointmentRepo.CreateAppointment(appointmentVM, id))
                 {
-                    return RedirectToAction(nameof(Index));
+                    if (User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("GetAppointmentsByDoctorId", new { id = id });
+                    }
+                    else
+                    {
+                        return RedirectToAction("GetAppointmentsByPatientId", new { id = appointmentVM.PatientId });
+                    }
+                        
                 }    
             }
             return View(appointmentVM);

@@ -13,32 +13,35 @@
     .table-bordered tbody tr td {
         border: 2px solid #17a2b8;
     }
-    .fa-edit, .fa-trash-alt {
+    .fa-trash-alt {
         color: #17a2b8
     }
 </style>
-
-<div class="container mt-5 mb-5"> 
+<div class="container mt-5 mb-5">
     <table class="table table-bordered">
         <thead class="alert-info">
             <tr>
                 <th>
-                   <h6>Patient Name</h6>
+                    Doctor Name
                 </th>
                 <th>
-                    <h6>Appointment Date</h6>
+                    Appointment Date
                 </th>
                 <th>
-                    <h6>Appointment Time</h6>
+                    Appointment Time
                 </th>
-                <th style="border-left:hidden;"></th>
-            </tr>
+                @if (User.IsInRole("Admin"))
+                {
+                    <th style="border-left:hidden;"></th>
+                }
+                </tr>
         </thead>
         <tbody>
-    @foreach (var item in Model) {
+            @foreach (var item in Model)
+            {
             <tr>
                 <td>
-                    <a  asp-controller="Patient" asp-action="Details" asp-route-id="@item.PatientId">@item.PatientFirstName @item.PatientLastName</a>
+                    @item.DoctorFirstName  @item.DoctorLastName
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.AppointmentId">@Html.DisplayFor(modelItem => item.AppointmentDate)</a>
@@ -46,20 +49,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.AppointmentTime)
                 </td>
-                <td>
-                    @if (!User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.AppointmentId"><i class="fas fa-edit"></i></a>
-                    }
-
-                    @if (User.IsInRole("Admin"))
-                    {
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
                         <a asp-action="Delete" asp-route-id="@item.AppointmentId"><i class="fas fa-trash-alt"></i></a>
-                    }
-
-                </td>
+                    </td>
+                }
             </tr>
-    }
+            }
         </tbody>
     </table>
 </div>

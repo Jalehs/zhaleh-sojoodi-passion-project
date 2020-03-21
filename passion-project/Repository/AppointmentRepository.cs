@@ -46,6 +46,21 @@ namespace passion_project.Repository
 
         }
 
+        public IEnumerable<AppointmentVM> GetAppointmentsByPatientId(int id)
+        {
+            return _context.Appointment.Where(a => a.PatientId == id).Select(a => new AppointmentVM
+            {
+                AppointmentId = a.AppointmentId,
+                DoctorId = a.DoctorId,
+                PatientId = a.PatientId,
+                DoctorFirstName = a.Doctor.DoctorFirstName,
+                DoctorLastName = a.Doctor.DoctorLastName,
+                AppointmentDate = a.AppointmentDate,
+                AppointmentTime = a.AppointmentTime,
+                AppointmentSummery = a.AppointmentSummery
+            }).OrderByDescending(a =>a.AppointmentDate);
+        }
+
         public Appointment GetAppointment(int id)
         {
             return _context.Appointment.FirstOrDefault(a => a.AppointmentId == id);

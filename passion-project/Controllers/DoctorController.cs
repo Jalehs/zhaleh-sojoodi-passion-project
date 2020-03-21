@@ -40,7 +40,14 @@ namespace passion_project.Controllers
             {
                 if (doctorRepo.Create(doctorModel))
                 {
-                    return RedirectToAction(nameof(Index));
+                    if (User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
             return View(doctorModel);

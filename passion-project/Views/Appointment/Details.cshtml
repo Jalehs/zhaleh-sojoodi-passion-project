@@ -15,7 +15,14 @@
     
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-white">
-                <li class="breadcrumb-item"><a asp-controller="Appointment" asp-action="GetAppointments" asp-route-id="@Model.DoctorId">Get Appointments</a></li>
+                @if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
+                {
+                    <li class="breadcrumb-item"><a asp-controller="Appointment" asp-action="GetAppointmentsByDoctorId" asp-route-id="@Model.DoctorId">Get Appointments</a></li>
+                }
+                else if (User.IsInRole("Admin") || User.IsInRole("Patient"))
+                {
+                    <li class="breadcrumb-item"><a asp-controller="Appointment" asp-action="GetAppointmentsByPatientId" asp-route-id="@Model.PatientId">Get Appointments</a></li>
+                }
                 <li class="breadcrumb-item active" aria-current="page">@Model.PatientFirstName @Model.PatientLastName</li>
             </ol>
         </nav>
@@ -24,7 +31,7 @@
                 <div class="d-flex justify-content-between mb-2">
                     <h4>@Model.PatientFirstName @Model.PatientLastName</h4>
                     <div>
-                        @if (!User.IsInRole("Admin"))
+                        @if (User.IsInRole("Doctor"))
                         {
                             <a asp-action="Edit" asp-route-id="@Model.AppointmentId"><i class="far fa-edit"></i></a>
                         }

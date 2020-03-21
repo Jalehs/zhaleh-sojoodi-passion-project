@@ -71,7 +71,14 @@ namespace passion_project.Controllers
             {
                 if (patientRepo.CreatePatient(patientModel))
                 {
-                     return RedirectToAction(nameof(Index));
+                    if (User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
 
             }

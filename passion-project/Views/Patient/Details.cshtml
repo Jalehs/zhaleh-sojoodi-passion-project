@@ -68,7 +68,15 @@
             <div class="card border-info p-3 box-shadow">
                 <p>@Model.PatientHistory</p>
             </div>
-
         </div>
+        @if (User.IsInRole("Admin") || User.Identity.Name == Model.PatientEmailAddress)
+        {
+            <div class="row pl-3">
+                <div class="col">
+                    <a asp-controller="Appointment" asp-action="GetAppointmentsByPatientId" asp-route-id="@Model.PatientId" class="btn btn-info">Get Appointments</a>
+                </div>
+            </div>
+            
+        }
     </div>
 </div>
