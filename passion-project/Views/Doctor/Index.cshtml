@@ -4,28 +4,40 @@
     ViewData["Title"] = "List Of Doctors";
 }
 
-<div class="container mb-5 mt-5">
-    <div class="row">
-        @foreach (var item in Model)
+<style>
+     .fa-plus {
+        color: #17a2b8
+     }
+</style>
+
+    <div class="container mb-5 mt-5">
+        @if (User.IsInRole("Admin"))
         {
-            <div class="col-md-6 col-sm-12">
-            <div class="card border-info mt-3 mb-3" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="@Url.Content(item.ImageUrl)" class="card-img" alt="doctor-photo" style="height: 220px;"/>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">@item.DoctorFirstName @item.DoctorLastName </h5>
-                            <p class="card-text">Speciality : @item.Speciality</p>
-                            <p class="card-text">Phone :  @item.DoctorPhoneNumber</p>
-                            <a asp-action="Details" asp-route-id="@item.DoctorId" class="btn btn-info">More Information</a>
+            <p class="float-right">
+                <a asp-action="Create"><i class="fas fa-plus"></i></a>
+            </p>
+        }
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-sm-12">
+                    <div class="card border-info mt-3 mb-3" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="@Url.Content(item.ImageUrl)" class="card-img" alt="doctor-photo" style="height: 220px;" />
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.DoctorFirstName @item.DoctorLastName </h5>
+                                    <p class="card-text">Speciality : @item.Speciality</p>
+                                    <p class="card-text">Phone :  @item.DoctorPhoneNumber</p>
+                                    <a asp-action="Details" asp-route-id="@item.DoctorId" class="btn btn-info">More Information</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
     </div>
 

@@ -4,18 +4,35 @@
     ViewData["Title"] = "Edit";
 }
 
+<style>
+    .breadcrumb-item li {
+        font-size: 16px;
+    }
 
-<div class="container mt-3 mb-3">
-    <div class="card">
-        <div class="card-header">
+    .breadcrumb-item a {
+        color: #5bc0de;
+    }
+</style>
+
+<div class="container mt-3 mb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white">
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="breadcrumb-item"><a asp-controller="Patient" asp-action="Index" asp-route-id="@Model.PatientId">Patients</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.PatientFirstName @Model.PatientLastName</li>
+            }
+
+        </ol>
+    </nav>
+    <div class="card border-info p-3">
+        <div class="card-header bg-info text-white mb-2">
             <h2>@Model.PatientFirstName @Model.PatientLastName</h2>
         </div>
-    </div>
-    <div class="card p-3 box-shadow">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PatientId" />
-            <div class="row">
+            <div class="row pl-3 p-2">
                 @if (User.IsInRole("Admin"))
                 {
                     <div class="form-group col-md-6 col-sm-12">
@@ -50,7 +67,7 @@
                     </div>
                 }
             </div>
-            <div class="row">
+            <div class="row pl-3 p-2">
                 <div class="form-group col-md-6 col-sm-12">
                     <h6>Phone Number:</h6>
                     <input asp-for="PatientPhoneNumber" class="form-control" />
@@ -63,7 +80,7 @@
                 </div>
 
             </div>
-            <div class="row">
+            <div class="row pl-3 p-2">
                 <div class="form-group col-md-6 col-sm-12">
                     <h6>City:</h6>
                     <input asp-for="PatientCity" class="form-control" />
@@ -75,15 +92,15 @@
                     <span asp-validation-for="PatientPostalCode" class="text-danger"></span>
                 </div>
             </div>
-            <div class="row">
+            <div class="row pl-3 p-2">
                 <div class="form-group col">
                     <h6>Patient History:</h6>
                     <textarea asp-for="PatientHistory" class="form-control" rows="3" stye="width:100%;"></textarea>
                     <span asp-validation-for="PatientHistory" class="text-danger"></span>
                 </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group ml-3">
+                <input type="submit" value="Save" class="btn btn-info" />
             </div>
         </form>
     </div>
