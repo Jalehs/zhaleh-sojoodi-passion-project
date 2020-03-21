@@ -4,14 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<style>
-    .create-doctor{
-        margin-bottom:70px;
-    }
-</style>
 
 <div class="container create-doctor mt-5">
-    <div class="card p-3 box-shadow">
+    <div class="card border-info p-3 box-shadow">
         @if (!User.IsInRole("Admin"))
         {
             <h4 class="alert-heading mb-5">Create your profile</h4>

@@ -9,16 +9,13 @@
         color:white;
         font-size:18px;
     }
-    .row {
-        margin-bottom: 80px;
-    }
-
+    
     .col img {
         display: block;
         margin: 10px auto;
     }
 </style>
-<div class="container mt-3">
+<div class="container mt-5 mb-5">
     <div class="row">
         <div class="col">
             <img src="@Url.Content(Model.ImageUrl)" class="card-img" alt="doctor-photo" style=" width:400px" />
@@ -31,9 +28,9 @@
                         <div>
                             @if (User.IsInRole("Admin") || (User.Identity.Name == Model.DoctorEmailAddress))
                             {
-                                <a asp-action="Edit" asp-route-id="@Model.DoctorId"><i class="far fa-edit" ></i></a>
+                                <a asp-action="Edit" asp-route-id="@Model.DoctorId"><i class="far fa-edit"></i></a>
                             }
-                            @if (User.IsInRole("Admin")) 
+                            @if (User.IsInRole("Admin"))
                             {
                                 <a asp-action="Delete" asp-route-id="@Model.DoctorId"><i class="fas fa-trash-alt"></i></a>
                             }
@@ -45,16 +42,32 @@
                     <h6>Room No. : @Model.RoomNumber</h6>
                     <h6>Phone No.: @Model.DoctorPhoneNumber</h6>
                     <h6> Email Address : @Model.DoctorEmailAddress</h6>
-
                     <div class="card-body border-info p-3">
                         <h4>Biography</h4><hr />
                         <p>@Model.Biography</p>
                     </div>
-                    <a asp-controller="Appointment" asp-action="Create" asp-route-id="@Model.DoctorId" class="btn btn-info">MAKE APPOINTMENT </a>
+                    @if ((User.Identity.Name != Model.DoctorEmailAddress) && !User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Appointment" asp-action="Create" asp-route-id="@Model.DoctorId" class="btn btn-info">MAKE APPOINTMENT </a>
+                    }
+                    else if (User.Identity.Name == Model.DoctorEmailAddress)
+                    {
+                        <a asp-controller="Appointment" asp-action="GetAppointments" asp-route-id="@Model.DoctorId" class="btn btn-info">Get Appointments</a>
+                    }
+                    else if (User.IsInRole("Admin"))
+                    {
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 mb-2">
+                                <a asp-controller="Appointment" asp-action="Create" asp-route-id="@Model.DoctorId" class="btn btn-info">Make An Appointment</a>
+                            </div>
+                            <div class="col-lg-12 col-md-12 mb-2">
+                                <a asp-controller="Appointment" asp-action="GetAppointments" asp-route-id="@Model.DoctorId" class="btn btn-info">Get Appointments</a>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
+    
 </div>
-
-

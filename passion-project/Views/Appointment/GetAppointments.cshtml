@@ -1,0 +1,54 @@
+﻿@model IEnumerable<passion_project.ViewModel.Appointment.AppointmentVM>
+
+<style>
+    .table-bordered thead tr {
+        border: 2px solid #5bc0de;
+    }
+    .table-bordered thead tr th {
+        border : 2px solid #5bc0de;
+    }
+    .table-bordered tbody tr {
+         border : 2px solid #5bc0de;
+    }
+    .table-bordered tbody tr td {
+         border : 2px solid #5bc0de;
+    }
+</style>
+
+<div class="container mt-5 mb-5"> 
+    <table class="table table-bordered">
+        <thead class="alert-info">
+            <tr>
+                <th>
+                   <h6>Patient Name</h6>
+                </th>
+                <th>
+                    <h6>Appointment Date</h6>
+                </th>
+                <th>
+                    <h6>Appointment Time</h6>
+                </th>
+                <th style="border-left:hidden;"></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    <a  asp-action="Details" asp-route-id="@item.AppointmentId">@item.PatientFirstName @item.PatientLastName</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppointmentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppointmentTime)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AppointmentId"><i class="fas fa-edit"></i></a> |
+                    <a asp-action="Delete" asp-route-id="@item.AppointmentId"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>

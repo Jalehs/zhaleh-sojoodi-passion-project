@@ -31,5 +31,9 @@ namespace passion_project.ViewModel
         [DisplayName("Room Number")]
         public int? RoomNumber { get; set; }
         public string Biography { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime AppointmentDate { get; set; }
     }
 }

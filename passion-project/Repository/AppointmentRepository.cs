@@ -1,4 +1,5 @@
-﻿using passion_project.Models.HealthCenter;
+﻿using Microsoft.EntityFrameworkCore;
+using passion_project.Models.HealthCenter;
 using passion_project.ViewModel.Appointment;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace passion_project.Repository
             _context = context;
         }
 
-        public IEnumerable<AppointmentVM> GetAllApoointments()
+        public IEnumerable<AppointmentVM> GetAllAppointments()
         {
             return _context.Appointment.Select(ap => new AppointmentVM
             {
@@ -32,15 +33,17 @@ namespace passion_project.Repository
 
         public IEnumerable<AppointmentVM> GetAppointmentsByDoctorId(int id)
         {
-             IEnumerable<Appointment> appointments= _context.Appointment.Where(a => a.DoctorId == id);
-            return appointments.Select(ap => new AppointmentVM
+            return _context.Appointment.Where(a => a.DoctorId == id).Select(a => new AppointmentVM
             {
-                PatientFirstName = ap.Patient.PatientFirstName,
-                PatientLastName = ap.Patient.PatientLastName,
-                AppointmentDate = ap.AppointmentDate,
-                AppointmentTime = ap.AppointmentTime,
-                AppointmentSummery = ap.AppointmentSummery
-            });
+                AppointmentId = a.AppointmentId,
+                PatientId = a.Patient.PatientId,
+                PatientFirstName = a.Patient.PatientFirstName,
+                PatientLastName = a.Patient.PatientLastName,
+                AppointmentDate = a.AppointmentDate,
+                AppointmentTime = a.AppointmentTime,
+                AppointmentSummery = a.AppointmentSummery
+            }).OrderByDescending(a => a.AppointmentDate);
+
         }
 
         public Appointment GetAppointment(int id)
@@ -74,17 +77,19 @@ namespace passion_project.Repository
         public AppointmentVM Details(int id)
         {
             var appointment = GetAppointment(id);
-            return new AppointmentVM
-            {
+            var patient = _context.Patient.Where(p => p.PatientId == appointment.PatientId).FirstOrDefault();
+           AppointmentVM appointmentModel = new AppointmentVM
+           {
+                DoctorId = appointment.DoctorId,
+                PatientId = patient.PatientId,
                 AppointmentId = appointment.AppointmentId,
                 AppointmentDate = appointment.AppointmentDate,
                 AppointmentTime = appointment.AppointmentTime,
                 AppointmentSummery = appointment.AppointmentSummery,
-                PatientFirstName = appointment.Patient.PatientFirstName,
-                PatientLastName = appointment.Patient.PatientLastName,
-                DoctorFirstName = appointment.Doctor.DoctorFirstName,
-                DoctorLastName = appointment.Doctor.DoctorLastName
-            };
+                PatientFirstName = patient.PatientFirstName,
+                PatientLastName = patient.PatientLastName
+           };
+            return appointmentModel;
         }
 
         public bool UpdateAppointment(AppointmentVM appointmentModel)

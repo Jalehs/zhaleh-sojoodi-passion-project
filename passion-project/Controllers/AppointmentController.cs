@@ -20,11 +20,16 @@ namespace passion_project.Controllers
             _context = context;
         }
 
-        // GET: Appointment
         public IActionResult Index()
         {
             AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
-            return View(appointmentRepo.GetAllApoointments());
+            return View(appointmentRepo.GetAllAppointments());
+        }
+
+        public IActionResult GetAppointments(int id)
+        {
+            AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
+            return View(appointmentRepo.GetAppointmentsByDoctorId(id).ToList());
         }
 
         // GET: Appointment/Details/5

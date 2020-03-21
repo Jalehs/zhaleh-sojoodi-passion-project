@@ -13,6 +13,7 @@ namespace passion_project.ViewModel.Appointment
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AppointmentId { get; set; }
         public int DoctorId { get; set; }
+        public int PatientId { get; set; }
         [DisplayName("First Name")]
         public string PatientFirstName { get; set; }
         [DisplayName("Last Name")]
