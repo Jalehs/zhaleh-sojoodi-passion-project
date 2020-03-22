@@ -3,10 +3,13 @@
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Patient" asp-action="Index">Patient List</a>
+        <a class="nav-link text-dark" asp-controller="Patient" asp-action="Index">Patients</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Doctor" asp-action="Index">Doctor List</a>
+        <a class="nav-link text-dark" asp-controller="Doctor" asp-action="Index">Doctors</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Appointment" asp-action="Index">Appointments</a>
     </li>
     <li class="nav-item">
         <a class="nav-link text-dark" asp-controller="UserRole" asp-action="Create">User Role</a>

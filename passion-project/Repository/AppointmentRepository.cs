@@ -19,8 +19,8 @@ namespace passion_project.Repository
 
         public IEnumerable<AppointmentVM> GetAllAppointments()
         {
-            return _context.Appointment.Select(ap => new AppointmentVM
-            {
+           return _context.Appointment.Select(ap => new AppointmentVM
+           {
                 PatientFirstName = ap.Patient.PatientFirstName,
                 PatientLastName = ap.Patient.PatientLastName,
                 DoctorFirstName = ap.Doctor.DoctorFirstName,
@@ -28,7 +28,8 @@ namespace passion_project.Repository
                 AppointmentDate = ap.AppointmentDate,
                 AppointmentTime = ap.AppointmentTime,
                 AppointmentSummery = ap.AppointmentSummery
-            });
+           });
+    
         }
 
         public IEnumerable<AppointmentVM> GetAppointmentsByDoctorId(int id)

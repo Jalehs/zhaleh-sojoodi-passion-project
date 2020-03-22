@@ -23,10 +23,11 @@ namespace passion_project.Controllers
         }
 
         // GET: Patients
-        public IActionResult Index()
+        public IActionResult Index(string sortOrder)
         {
+            string sort = String.IsNullOrEmpty(sortOrder) ? "name-asc" : sortOrder;
             PatientRepository patientRepo = new PatientRepository(_context);
-            return View(patientRepo.GetAll());           
+            return View(patientRepo.GetAll(sort));           
         }
         
         // GET: Patients/Details/5

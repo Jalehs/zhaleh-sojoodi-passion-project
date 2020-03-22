@@ -16,9 +16,9 @@ namespace passion_project.Repository
         {
             _context = context;
         }
-        public IEnumerable<PatientVM> GetAll()
+        public IEnumerable<PatientVM> GetAll(string sortOrder)
         {
-            return _context.Patient.Select(p => new PatientVM
+            var patients = _context.Patient.Select(p => new PatientVM
             {
                PatientId = p.PatientId,
                PatientFirstName = p.PatientFirstName,
@@ -33,6 +33,15 @@ namespace passion_project.Repository
                PatientPostalCode = p.PatientPostalCode,
                PatientHistory = p.PatientHistory
             });
+            if (sortOrder == "name-asc")
+            {
+                patients = patients.OrderBy(ap => ap.PatientLastName);
+            }
+            else if (sortOrder == "name-desc")
+            {
+                patients = patients.OrderByDescending(ap => ap.PatientLastName);
+            }
+            return patients;
         }
 
         public Patient GetPatient(int id)

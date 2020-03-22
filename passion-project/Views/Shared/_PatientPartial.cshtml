@@ -20,5 +20,8 @@
             <a class="nav-link text-dark" asp-controller="Patient" asp-action="Details" asp-route-id="@patient.PatientId">Profile</a>
         </li>
     }
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Appointment" asp-action="GetAppointmentsByPatientId" asp-route-id="@patient.PatientId">Appointments</a>
+    </li>
 
 }

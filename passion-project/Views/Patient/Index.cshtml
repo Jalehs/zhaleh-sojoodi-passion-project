@@ -17,21 +17,25 @@
         .table-bordered tbody tr td {
             border: 2px solid #17a2b8;
         }
-        .fa-edit, .fa-trash-alt, .fa-plus {
-            color: #17a2b8
+        .fa-edit, .fa-trash-alt, .fa-plus, .fa-sort-alpha-up, .fa-sort-alpha-down {
+            color: #17a2b8;
         }
     </style>
 
 
     <div class="container mt-5 mb-5">
-        <p class="float-right">
+        <div class="d-flex justify-content-between">
+            <div>
+                <a asp-action="Index" asp-route-sortOrder="name-asc"><i class="fas fa-sort-alpha-up"></i></a>
+                <a asp-action="Index" asp-route-sortOrder="name-desc"><i class="fas fa-sort-alpha-down"></i></a>
+            </div>
             <a asp-action="Create"><i class="fas fa-plus"></i></a>
-        </p>
+        </div>
         <table class="table table-bordered">
             <thead class="alert-info">
                 <tr>
                     <th>
-                        <a asp-action ="Index" asp-route-sortOrder=@ViewData["SortName"]>Patient Name</a>
+                        Patient Name
                     </th>
                     <th>
                         Health Number
