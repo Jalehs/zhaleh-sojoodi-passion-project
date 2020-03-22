@@ -21,6 +21,9 @@ namespace passion_project.Repository
         {
            return _context.Appointment.Select(ap => new AppointmentVM
            {
+                AppointmentId = ap.AppointmentId, 
+                PatientId = ap.PatientId,
+                DoctorId = ap.DoctorId, 
                 PatientFirstName = ap.Patient.PatientFirstName,
                 PatientLastName = ap.Patient.PatientLastName,
                 DoctorFirstName = ap.Doctor.DoctorFirstName,
@@ -28,7 +31,7 @@ namespace passion_project.Repository
                 AppointmentDate = ap.AppointmentDate,
                 AppointmentTime = ap.AppointmentTime,
                 AppointmentSummery = ap.AppointmentSummery
-           });
+           }).OrderByDescending(ap => ap.AppointmentDate); 
     
         }
 

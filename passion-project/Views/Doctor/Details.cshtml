@@ -61,6 +61,7 @@
                     </div>
                     @if ((User.Identity.Name != Model.DoctorEmailAddress) && !User.IsInRole("Admin"))
                     {
+                      
                         <a asp-controller="Appointment" asp-action="Create" asp-route-id="@Model.DoctorId" class="btn btn-info">MAKE APPOINTMENT </a>
                     }
                     else if (User.Identity.Name == Model.DoctorEmailAddress)

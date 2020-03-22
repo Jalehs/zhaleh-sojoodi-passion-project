@@ -31,18 +31,25 @@
         <div class="row" style="width:100%;">
             @foreach (var item in Model)
             {
-                <div class="col-md-6 col-sm-12">
+                <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="card border-info mt-3 mb-3" style="max-width: 540px;">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img src="@Url.Content(item.ImageUrl)" class="card-img" alt="doctor-photo" style="height: 220px;" />
+                                <img src="@Url.Content(item.ImageUrl)" class="card-img" alt="doctor-photo" style="height: 250px;" />
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">@item.DoctorFirstName @item.DoctorLastName </h5>
                                     <p class="card-text">Speciality : @item.Speciality</p>
                                     <p class="card-text">Phone :  @item.DoctorPhoneNumber</p>
-                                    <a asp-action="Details" asp-route-id="@item.DoctorId" class="btn btn-info">More Information</a>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 m-2">
+                                        <a asp-action="Details" asp-route-id="@item.DoctorId" class="btn btn-info">More Information</a>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 m-2">
+                                        <a asp-controller="Appointment" asp-action="Create" asp-route-id="@item.DoctorId" class="btn btn-info">Make An Appointment</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

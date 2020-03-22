@@ -47,19 +47,19 @@
             <h3>Basic Information </h3>
             <div class="card border-info p-3 box-shadow">
                 <div class="row" style="line-height:3.8">
-                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Name : &emsp;@Model.PatientFirstName @Model.PatientLastName</h6>
-                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Health No. : &emsp;@Model.Phn</h6>
+                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Name: @Model.PatientFirstName @Model.PatientLastName</h6>
+                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Health No.: @Model.Phn</h6>
                 </div>
                 <div class="row">
-                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Date of Birth : &emsp; @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.PatientBirthDate))</h6>
-                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Gender : &emsp;@Model.PatientGender</h6>
+                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Date of Birth: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.PatientBirthDate))</h6>
+                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Gender: @Model.PatientGender</h6>
                 </div>
                 <div class="row">
-                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Phone No. : &emsp;@Model.PatientPhoneNumber</h6>
-                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Email : &emsp;@Model.PatientEmailAddress</h6>
+                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Phone No.: @Model.PatientPhoneNumber</h6>
+                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Email: @Model.PatientEmailAddress</h6>
                 </div>
                 <div class="row">
-                    <h6 class="col" style="line-height:3">Address : &emsp; @Model.PatientAddress @Model.PatientCity   @Model.PatientPostalCode</h6>
+                    <h6 class="col" style="line-height:3">Address: @Model.PatientAddress @Model.PatientCity   @Model.PatientPostalCode</h6>
                 </div>
             </div>
         </div>

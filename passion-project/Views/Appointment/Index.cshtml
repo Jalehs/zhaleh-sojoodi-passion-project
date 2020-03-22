@@ -19,9 +19,6 @@
     }
 </style>
 <div class="container mt-5 mb-5">
-    <p class="float-right">
-        <a asp-action="Create"><i class="fas fa-plus"></i></a>
-    </p>
     <table class="table table-bordered">
         <thead class="alert-info">
             <tr>
@@ -51,13 +48,12 @@
                         @item.DoctorFirstName @item.DoctorLastName
                     </td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@item.AppointmentId">@item.AppointmentDate</a>
+                        <a asp-action="Details" asp-route-id="@item.AppointmentId">@Convert.ToString(string.Format("{0:dd/MM/yyyy}", @item.AppointmentDate))</a>
                     </td>
                     <td>
                         @item.AppointmentTime
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.AppointmentId"><i class="fas fa-edit"></i></a>
                         <a asp-action="Delete" asp-route-id="@item.AppointmentId"><i class="fas fa-trash-alt"></i></a>
                     </td>
                 </tr>

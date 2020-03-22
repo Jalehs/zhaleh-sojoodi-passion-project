@@ -12,7 +12,7 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-white">
-            <li class="breadcrumb-item"><a asp-controller="Appointment" asp-action="GetAppointments" asp-route-id="@Model.DoctorId">Get Appointments</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Appointment" asp-action="GetAppointmentsByDoctorId" asp-route-id="@Model.DoctorId">Get Appointments</a></li>
             <li class="breadcrumb-item active" aria-current="page">@Model.PatientFirstName @Model.PatientLastName</li>
         </ol>
     </nav>

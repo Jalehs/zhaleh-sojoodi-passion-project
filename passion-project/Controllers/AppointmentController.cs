@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +52,7 @@ namespace passion_project.Controllers
 
         // GET: Appointment/Create
         [HttpGet]
+        [Authorize]
         public IActionResult Create(int id)
         {
             AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
@@ -89,6 +91,7 @@ namespace passion_project.Controllers
         // POST: Appointment/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult Create(AppointmentVM appointmentVM, int id)
         {
             if (ModelState.IsValid)
