@@ -139,5 +139,22 @@ namespace passion_project.Repository
             return true;
 
         }
+
+        public IEnumerable<DoctorIndexVM> GetDoctorsBySpeciality(string speciality)
+        {
+            var doctor = _context.Doctor.Where(d => d.Speciality == speciality);
+            return doctor.Select(d => new DoctorIndexVM
+            {
+                DoctorId = d.DoctorId,
+                DoctorFirstName = d.DoctorFirstName,
+                DoctorLastName = d.DoctorLastName,
+                Speciality = d.Speciality,
+                ImageUrl = d.DoctorImageUrl,
+                DoctorPhoneNumber = d.DoctorPhoneNumber,
+                DoctorEmailAddress = d.DoctorEmailAddress,
+                RoomNumber = d.RoomNumber,
+                Biography = d.Biography
+            });
+        }
     }
 }

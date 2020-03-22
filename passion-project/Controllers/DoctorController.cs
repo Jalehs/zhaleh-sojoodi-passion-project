@@ -21,10 +21,18 @@ namespace passion_project.Controllers
             _context = context;
             _hostingEnviroment = hostingEnviroment;
         }
-        public IActionResult Index()
+        public IActionResult Index(string speciality)
         {
             DoctorRepository doctorRepo = new DoctorRepository(_context, _hostingEnviroment);
-            return View(doctorRepo.GetAllDoctors());
+            if (speciality == null)
+            {
+                return View(doctorRepo.GetAllDoctors());
+            }
+            else
+            {
+                return View(doctorRepo.GetDoctorsBySpeciality(speciality));
+            }
+            
         }
         [HttpGet]
         public IActionResult Create()

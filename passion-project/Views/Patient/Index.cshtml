@@ -31,7 +31,7 @@
             <thead class="alert-info">
                 <tr>
                     <th>
-                        Patient Name
+                        <a asp-action ="Index" asp-route-sortOrder=@ViewData["SortName"]>Patient Name</a>
                     </th>
                     <th>
                         Health Number
@@ -42,9 +42,7 @@
                     <th>
                         Email Address
                     </th>
-                    <th style="
-        border-left: hidden;
-   "></th>
+                    <th style="border-left: hidden;"></th>
                 </tr>
             </thead>
             <tbody>
