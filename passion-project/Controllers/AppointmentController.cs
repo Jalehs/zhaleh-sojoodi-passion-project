@@ -25,7 +25,7 @@ namespace passion_project.Controllers
             _context = context;
             _emailSettings = emailSettings.Value;
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
@@ -115,11 +115,12 @@ namespace passion_project.Controllers
                         {
                             return RedirectToAction("GetAppointmentsByPatientId", new { id = appointmentVM.PatientId });
                         }
-
                     }
 
                 }
             }
+            ViewBag.PatientFirstName = appointmentVM.PatientFirstName;
+            ViewBag.PatientLastName = appointmentVM.PatientLastName;
             return View(appointmentVM);
         }
 

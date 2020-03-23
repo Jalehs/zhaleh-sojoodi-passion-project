@@ -22,6 +22,7 @@ namespace passion_project.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Patients
         public IActionResult Index(string sortOrder)
         {

@@ -70,17 +70,17 @@
                 {
                     <div class="form-group col-md-4 col-sm-12">
                         <h6>Patient First Name:</h6>
-                        <input asp-for="PatientFirstName" class="form-control" value=@ViewBag.PatientFirstName />
+                        <input asp-for="PatientFirstName" class="form-control" value=@ViewBag.PatientFirstName  />
                         <span asp-validation-for="PatientFirstName" class="text-danger"></span>
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
                         <h6>Patient First Name:</h6>
-                        <input asp-for="PatientLastName" class="form-control" value=@ViewBag.PatientLastName />
+                        <input asp-for="PatientLastName" class="form-control" value=@ViewBag.PatientLastName   />
                         <span asp-validation-for="PatientLastName" class="text-danger"></span>
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
                         <h6>Patient Email Address:</h6>
-                        <input asp-for="PatientEmailAddress" class="form-control" value="@User.Identity.Name" />
+                        <input asp-for="PatientEmailAddress" class="form-control" value="@User.Identity.Name"  />
                         <span asp-validation-for="PatientEmailAddress" class="text-danger"></span>
                     </div>
                 }
@@ -101,7 +101,7 @@
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <h6>Appointment Date: </h6>
-                    <input asp-for="AppointmentDate" class="form-control" id="appointmentDate" />
+                    <input asp-for="AppointmentDate" class="form-control" id="appointmentDate"  />
                     <span asp-validation-for="AppointmentDate" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-6 col-sm-12">

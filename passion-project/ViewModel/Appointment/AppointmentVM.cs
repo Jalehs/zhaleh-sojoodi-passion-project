@@ -1,4 +1,5 @@
-﻿using System;
+﻿using passion_project.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -29,6 +30,8 @@ namespace passion_project.ViewModel.Appointment
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Appointment Date is required.")]
+        [CheckDate(ErrorMessage = "Appointment Date must not be in the past.")]
+        [CheckDateWeekend(ErrorMessage = "Appointment Date must not be on the weekend.")]
         public DateTime AppointmentDate { get; set; }
         [Required(ErrorMessage = "Appointment Time is required.")]
         public TimeSpan AppointmentTime { get; set; }

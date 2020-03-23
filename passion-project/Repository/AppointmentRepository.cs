@@ -78,7 +78,6 @@ namespace passion_project.Repository
                 var doctor = _context.Doctor.FirstOrDefault(d => d.DoctorId == id);
                 Appointment appointment = new Appointment
                 {
-                    AppointmentDate = appointmentModel.AppointmentDate,
                     AppointmentTime = appointmentModel.AppointmentTime,
                     AppointmentSummery = appointmentModel.AppointmentSummery
                 };

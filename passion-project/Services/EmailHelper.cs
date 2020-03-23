@@ -42,7 +42,7 @@ namespace passion_project.Services
                 string text = "This is a friendly reminder that you have the following appointment booked. ";
                 string html = @"<h3>Hi " + apVM.PatientFirstName + " " + apVM.PatientLastName + "!</h3>" +
                     "<p>This is a friendly reminder that you have the following appointment booked:</p><hr />" +
-                    "<div class='text-center p-3'> " + apVM.AppointmentDate + " " + apVM.AppointmentTime  + "<br /> With Dr. " +
+                    "<div class='text-center p-3'> " + @Convert.ToString(string.Format("{0:dd/MM/yyyy}", apVM.AppointmentDate)) + " " + apVM.AppointmentTime  + "<br /> With Dr. " +
                                                         apVM.DoctorFirstName + " " + apVM.DoctorLastName + "</div>" +
                     "<p>Please Call (604)688-5225 if you have any question</p> " +
                     "<p>Best,<br />" +
