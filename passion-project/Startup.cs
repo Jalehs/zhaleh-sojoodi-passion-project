@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using passion_project.Models.HealthCenter;
+using passion_project.Models;
 
 namespace passion_project
 {
@@ -33,6 +34,7 @@ namespace passion_project
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
@@ -48,7 +50,6 @@ namespace passion_project
                 options.Password.RequiredLength = 6;
                 
             });
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

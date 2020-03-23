@@ -6,8 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using passion_project.Models;
 using passion_project.Models.HealthCenter;
 using passion_project.Repository;
+using passion_project.Services;
 using passion_project.ViewModel.Appointment;
 
 namespace passion_project.Controllers
@@ -15,10 +18,12 @@ namespace passion_project.Controllers
     public class AppointmentController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly EmailSettings _emailSettings;
 
-        public AppointmentController(ApplicationDbContext context)
+        public AppointmentController(ApplicationDbContext context, IOptions<EmailSettings> emailSettings)
         {
             _context = context;
+            _emailSettings = emailSettings.Value;
         }
 
         public IActionResult Index()
@@ -77,6 +82,7 @@ namespace passion_project.Controllers
                 ViewBag.PatientLastName = patient.PatientLastName;
                 AppointmentVM appointmentModel = new AppointmentVM
                 {
+                    
                     PatientId = patient.PatientId,
                     PatientEmailAddress = userName,
                     PatientFirstName = patient.PatientFirstName,
@@ -97,18 +103,22 @@ namespace passion_project.Controllers
             if (ModelState.IsValid)
             {
                 AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
-                if (appointmentRepo.CreateAppointment(appointmentVM, id))
+                if (new EmailHelper(_emailSettings).SendMail(appointmentVM.PatientEmailAddress, "Appointment Reminder", appointmentVM))
                 {
-                    if (User.IsInRole("Admin"))
+                    if (appointmentRepo.CreateAppointment(appointmentVM, id))
                     {
-                        return RedirectToAction("GetAppointmentsByDoctorId", new { id = id });
+                        if (User.IsInRole("Admin"))
+                        {
+                            return RedirectToAction("GetAppointmentsByDoctorId", new { id = id });
+                        }
+                        else
+                        {
+                            return RedirectToAction("GetAppointmentsByPatientId", new { id = appointmentVM.PatientId });
+                        }
+
                     }
-                    else
-                    {
-                        return RedirectToAction("GetAppointmentsByPatientId", new { id = appointmentVM.PatientId });
-                    }
-                        
-                }    
+
+                }
             }
             return View(appointmentVM);
         }
