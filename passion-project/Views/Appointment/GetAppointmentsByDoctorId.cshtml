@@ -18,48 +18,58 @@
     }
 </style>
 
-<div class="container mt-5 mb-5"> 
-    <table class="table table-bordered">
-        <thead class="alert-info">
-            <tr>
-                <th>
-                   <h6>Patient Name</h6>
-                </th>
-                <th>
-                    <h6>Appointment Date</h6>
-                </th>
-                <th>
-                    <h6>Appointment Time</h6>
-                </th>
-                <th style="border-left:hidden;"></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    <a  asp-controller="Patient" asp-action="Details" asp-route-id="@item.PatientId">@item.PatientFirstName @item.PatientLastName</a>
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.AppointmentId">@Html.DisplayFor(modelItem => item.AppointmentDate)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AppointmentTime)
-                </td>
-                <td>
-                    @if (!User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.AppointmentId"><i class="fas fa-edit"></i></a>
-                    }
+<div class="container mt-5 mb-5">
+    <form class="form-inline" asp-controller="Appointment" asp-action="GetAppointmentsByDoctorId">
+        <div class="input-group mb-3" style="width:100%;">
+            <div class="input-group-prepend">
+                <button type="submit" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+            </div>
+            <input type="text" class="form-control" placeholder="Search By Patient Last Name"
+                   aria-label="" aria-describedby="basic-addon1" name="lastName" />
+        </div>
+        <table class="table table-bordered">
+            <thead class="alert-info">
+                <tr>
+                    <th>
+                        <h6>Patient Name</h6>
+                    </th>
+                    <th>
+                        <h6>Appointment Date</h6>
+                    </th>
+                    <th>
+                        <h6>Appointment Time</h6>
+                    </th>
+                    <th style="border-left:hidden;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Patient" asp-action="Details" asp-route-id="@item.PatientId">@item.PatientFirstName @item.PatientLastName</a>
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.AppointmentId">@Html.DisplayFor(modelItem => item.AppointmentDate)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AppointmentTime)
+                        </td>
+                        <td>
+                            @if (!User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.AppointmentId"><i class="fas fa-edit"></i></a>
+                            }
 
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Delete" asp-route-id="@item.AppointmentId"><i class="fas fa-trash-alt"></i></a>
-                    }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Delete" asp-route-id="@item.AppointmentId"><i class="fas fa-trash-alt"></i></a>
+                            }
 
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
 </div>

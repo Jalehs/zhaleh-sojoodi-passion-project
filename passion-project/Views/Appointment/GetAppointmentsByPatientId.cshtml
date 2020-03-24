@@ -18,45 +18,54 @@
     }
 </style>
 <div class="container mt-5 mb-5">
-    <table class="table table-bordered">
-        <thead class="alert-info">
-            <tr>
-                <th>
-                    Doctor Name
-                </th>
-                <th>
-                    Appointment Date
-                </th>
-                <th>
-                    Appointment Time
-                </th>
-                @if (User.IsInRole("Admin"))
-                {
-                    <th style="border-left:hidden;"></th>
-                }
+    <form class="form-inline" asp-controller="Appointment" asp-action="GetAppointmentsByPatientId">
+        <div class="input-group mb-3" style="width:100%;">
+            <div class="input-group-prepend">
+                <button type="submit" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+            </div>
+            <input type="text" class="form-control" placeholder="Search By Doctor Last Name"
+                   aria-label="" aria-describedby="basic-addon1" name="lastName" />
+        </div>
+        <table class="table table-bordered">
+            <thead class="alert-info">
+                <tr>
+                    <th>
+                        Doctor Name
+                    </th>
+                    <th>
+                        Appointment Date
+                    </th>
+                    <th>
+                        Appointment Time
+                    </th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th style="border-left:hidden;"></th>
+                    }
                 </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td>
-                    @item.DoctorFirstName  @item.DoctorLastName
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.AppointmentId">@Html.DisplayFor(modelItem => item.AppointmentDate)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AppointmentTime)
-                </td>
-                @if (User.IsInRole("Admin"))
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
                 {
-                    <td>
-                        <a asp-action="Delete" asp-route-id="@item.AppointmentId"><i class="fas fa-trash-alt"></i></a>
-                    </td>
+                    <tr>
+                        <td>
+                            @item.DoctorFirstName  @item.DoctorLastName
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.AppointmentId">@Html.DisplayFor(modelItem => item.AppointmentDate)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AppointmentTime)
+                        </td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td>
+                                <a asp-action="Delete" asp-route-id="@item.AppointmentId"><i class="fas fa-trash-alt"></i></a>
+                            </td>
+                        }
+                    </tr>
                 }
-            </tr>
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </form>
 </div>

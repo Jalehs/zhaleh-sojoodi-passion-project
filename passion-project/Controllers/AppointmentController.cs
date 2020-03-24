@@ -32,16 +32,31 @@ namespace passion_project.Controllers
             return View(appointmentRepo.GetAllAppointments());
         }
 
-        public IActionResult GetAppointmentsByDoctorId(int id)
+        public IActionResult GetAppointmentsByDoctorId(int id, string lastName)
         {
             AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
-            return View(appointmentRepo.GetAppointmentsByDoctorId(id).ToList());
+            if(lastName == null)
+            {
+                return View(appointmentRepo.GetAppointmentsByDoctorId(id).ToList());
+            }
+            else
+            {
+                return View(appointmentRepo.GetAppointmentsByPatientLastName(id, lastName).ToList());
+            }
         }
 
-        public IActionResult GetAppointmentsByPatientId(int id)
+        public IActionResult GetAppointmentsByPatientId(int id, string lastName)
         {
             AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
-            return View(appointmentRepo.GetAppointmentsByPatientId(id));
+            if(lastName == null)
+            {
+                return View(appointmentRepo.GetAppointmentsByPatientId(id).ToList());
+            }
+            else
+            {
+                return View(appointmentRepo.GetAppointmentsByDoctorLastName(id, lastName).ToList());
+            }
+            
         }
 
         // GET: Appointment/Details/5

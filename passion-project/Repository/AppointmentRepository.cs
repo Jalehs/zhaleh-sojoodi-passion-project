@@ -50,6 +50,22 @@ namespace passion_project.Repository
 
         }
 
+        public IEnumerable<AppointmentVM> GetAppointmentsByPatientLastName(int id, string lastName)
+        {
+            var appointmentsByDoctorId = _context.Appointment.Where(a => a.DoctorId == id);
+            var appointmentByLastName = appointmentsByDoctorId.Where(a => a.Patient.PatientLastName == lastName);
+            return appointmentByLastName.Select(a => new AppointmentVM
+            {
+                AppointmentId = a.AppointmentId,
+                PatientId = a.Patient.PatientId,
+                PatientFirstName = a.Patient.PatientFirstName,
+                PatientLastName = a.Patient.PatientLastName,
+                AppointmentDate = a.AppointmentDate,
+                AppointmentTime = a.AppointmentTime,
+                AppointmentSummery = a.AppointmentSummery
+
+            }).OrderByDescending(a => a.AppointmentDate);
+        }
         public IEnumerable<AppointmentVM> GetAppointmentsByPatientId(int id)
         {
             return _context.Appointment.Where(a => a.PatientId == id).Select(a => new AppointmentVM
@@ -65,6 +81,22 @@ namespace passion_project.Repository
             }).OrderByDescending(a =>a.AppointmentDate);
         }
 
+        public IEnumerable<AppointmentVM> GetAppointmentsByDoctorLastName(int id, string lastName)
+        {
+            var appointmentsByPatientId = _context.Appointment.Where(a => a.PatientId == id);
+            var appointmentsByLastName = appointmentsByPatientId.Where(a => a.Doctor.DoctorLastName == lastName);
+            return appointmentsByLastName.Select(a => new AppointmentVM
+            {
+                AppointmentId = a.AppointmentId,
+                DoctorId = a.DoctorId,
+                PatientId = a.PatientId,
+                DoctorFirstName = a.Doctor.DoctorFirstName,
+                DoctorLastName = a.Doctor.DoctorLastName,
+                AppointmentDate = a.AppointmentDate,
+                AppointmentTime = a.AppointmentTime,
+                AppointmentSummery = a.AppointmentSummery
+            }).OrderByDescending(a => a.AppointmentDate);
+        }
         public Appointment GetAppointment(int id)
         {
             return _context.Appointment.FirstOrDefault(a => a.AppointmentId == id);
