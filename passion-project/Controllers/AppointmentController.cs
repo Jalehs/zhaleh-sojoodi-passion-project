@@ -26,10 +26,10 @@ namespace passion_project.Controllers
             _emailSettings = emailSettings.Value;
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult Index()
+        public IActionResult Index(string lastName)
         {
             AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
-            return View(appointmentRepo.GetAllAppointments());
+            return View(appointmentRepo.GetAllAppointments(lastName));
         }
 
         public IActionResult GetAppointmentsByDoctorId(int id, string lastName)
@@ -93,6 +93,10 @@ namespace passion_project.Controllers
             {
                 var userName = User.Identity.Name;
                 var patient = _context.Patient.Where(p => p.PatientEmailAddress == userName).FirstOrDefault();
+                if(patient == null)
+                {
+                    return RedirectToAction("Create", "Patient");
+                }
                 ViewBag.PatientFirstName = patient.PatientFirstName;
                 ViewBag.PatientLastName = patient.PatientLastName;
                 AppointmentVM appointmentModel = new AppointmentVM
@@ -173,11 +177,10 @@ namespace passion_project.Controllers
             {
                 return NotFound();
             }
-            if (ModelState.IsValid)
-            {
-               if(appointmentRepo.UpdateAppointment(appointmentVM)) 
-                    return RedirectToAction("GetAppointmentsByDoctorId", new { id = appointment.DoctorId});
-            }
+           
+            if(appointmentRepo.UpdateAppointment(appointmentVM)) 
+                return RedirectToAction("GetAppointmentsByDoctorId", new { id = appointment.DoctorId});
+           
             return View(appointmentVM);
         }
 
@@ -214,7 +217,7 @@ namespace passion_project.Controllers
             AppointmentRepository appointmentRepo = new AppointmentRepository(_context);
             var appointment = appointmentRepo.GetAppointment(id);
             if (appointmentRepo.DeleteAppointment(id))
-                return RedirectToAction("GetAppointmentsByDoctorId", new { id = appointment.DoctorId });
+                return RedirectToAction("Index");
             return View(appointment);
         }
 

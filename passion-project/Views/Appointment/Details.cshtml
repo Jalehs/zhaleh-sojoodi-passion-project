@@ -15,13 +15,17 @@
     
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-white">
-                @if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
+                @if (User.IsInRole("Admin"))
                 {
-                    <li class="breadcrumb-item"><a asp-controller="Appointment" asp-action="GetAppointmentsByDoctorId" asp-route-id="@Model.DoctorId">Get Appointments</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Appointment" asp-action="Index" >Appointments</a></li>
                 }
-                else if (User.IsInRole("Admin") || User.IsInRole("Patient"))
+                else if (User.IsInRole("Doctor"))
                 {
-                    <li class="breadcrumb-item"><a asp-controller="Appointment" asp-action="GetAppointmentsByPatientId" asp-route-id="@Model.PatientId">Get Appointments</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Appointment" asp-action="GetAppointmentsByDoctorId" asp-route-id="@Model.DoctorId">Appointments</a></li>
+                }
+                else if (!User.IsInRole("Admin") || !User.IsInRole("Doctor"))
+                {
+                    <li class="breadcrumb-item"><a asp-controller="Appointment" asp-action="GetAppointmentsByPatientId" asp-route-id="@Model.PatientId">Appointments</a></li>
                 }
                 <li class="breadcrumb-item active" aria-current="page">@Model.PatientFirstName @Model.PatientLastName</li>
             </ol>

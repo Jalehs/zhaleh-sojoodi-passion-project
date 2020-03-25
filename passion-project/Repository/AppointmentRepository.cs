@@ -17,24 +17,44 @@ namespace passion_project.Repository
             _context = context;
         }
 
-        public IEnumerable<AppointmentVM> GetAllAppointments()
+        public IEnumerable<AppointmentVM> GetAllAppointments(string lastName)
         {
-           return _context.Appointment.Select(ap => new AppointmentVM
-           {
-                AppointmentId = ap.AppointmentId, 
-                PatientId = ap.PatientId,
-                DoctorId = ap.DoctorId, 
-                PatientFirstName = ap.Patient.PatientFirstName,
-                PatientLastName = ap.Patient.PatientLastName,
-                DoctorFirstName = ap.Doctor.DoctorFirstName,
-                DoctorLastName = ap.Doctor.DoctorLastName,
-                AppointmentDate = ap.AppointmentDate,
-                AppointmentTime = ap.AppointmentTime,
-                AppointmentSummery = ap.AppointmentSummery
-           }).OrderByDescending(ap => ap.AppointmentDate); 
+            if (lastName == null)
+            {
+                return _context.Appointment.Select(ap => new AppointmentVM
+                {
+                    AppointmentId = ap.AppointmentId,
+                    PatientId = ap.PatientId,
+                    DoctorId = ap.DoctorId,
+                    PatientFirstName = ap.Patient.PatientFirstName,
+                    PatientLastName = ap.Patient.PatientLastName,
+                    DoctorFirstName = ap.Doctor.DoctorFirstName,
+                    DoctorLastName = ap.Doctor.DoctorLastName,
+                    AppointmentDate = ap.AppointmentDate,
+                    AppointmentTime = ap.AppointmentTime,
+                    AppointmentSummery = ap.AppointmentSummery
+                }).OrderByDescending(ap => ap.AppointmentDate);
+            }
+            else
+            {
+                var appointements =  _context.Appointment.Where(ap => ap.Patient.PatientLastName == lastName);
+                return appointements.Select(ap => new AppointmentVM
+                {
+                    AppointmentId = ap.AppointmentId,
+                    PatientId = ap.PatientId,
+                    DoctorId = ap.DoctorId,
+                    PatientFirstName = ap.Patient.PatientFirstName,
+                    PatientLastName = ap.Patient.PatientLastName,
+                    DoctorFirstName = ap.Doctor.DoctorFirstName,
+                    DoctorLastName = ap.Doctor.DoctorLastName,
+                    AppointmentDate = ap.AppointmentDate,
+                    AppointmentTime = ap.AppointmentTime,
+                    AppointmentSummery = ap.AppointmentSummery
+                }).OrderByDescending(ap => ap.AppointmentDate);
+            }
     
         }
-
+       
         public IEnumerable<AppointmentVM> GetAppointmentsByDoctorId(int id)
         {
             return _context.Appointment.Where(a => a.DoctorId == id).Select(a => new AppointmentVM
@@ -110,6 +130,7 @@ namespace passion_project.Repository
                 var doctor = _context.Doctor.FirstOrDefault(d => d.DoctorId == id);
                 Appointment appointment = new Appointment
                 {
+                    AppointmentDate = appointmentModel.AppointmentDate,
                     AppointmentTime = appointmentModel.AppointmentTime,
                     AppointmentSummery = appointmentModel.AppointmentSummery
                 };

@@ -18,7 +18,15 @@
         <form asp-action="Delete" class="text-center">
             <input type="hidden" asp-for="AppointmentId" />
             <input type="submit" value="Delete" class="btn btn-info" />
-            <a asp-controller="Appointment" asp-action="GetAppointmentsByDoctorId" asp-route-id="@Model.DoctorId" class="btn btn-info">Back to List</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-controller="Appointment" asp-action="Index"  class="btn btn-info">Back to List</a>
+            }
+            else
+            {
+                <a asp-controller="Appointment" asp-action="GetAppointmentsByDoctorId" asp-route-id="@Model.DoctorId" class="btn btn-info">Back to List</a>
+            }
+
         </form>
     </div>
 </div>
