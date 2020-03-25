@@ -1,0 +1,87 @@
+﻿@model passion_project.ViewModel.DoctorIndexVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<style>
+    .breadcrumb-item li{
+        font-size: 16px;
+    }
+    .breadcrumb-item a{
+        color:#5bc0de;
+    }
+</style>
+
+    <div class="container mt-3 mb-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-white">
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="breadcrumb-item"><a asp-controller="Doctor" asp-action="Index" asp-route-id="@Model.DoctorId">Doctors</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.DoctorFirstName @Model.DoctorLastName</li>
+                }
+
+            </ol>
+        </nav>
+        <div class="row">
+            <div class="col">
+                <img src="@Url.Content(Model.ImageUrl)" class="card-img" alt="doctor-photo" style=" width:400px" />
+            </div>
+            <div class="col mt-5 mt-lg-0">
+                <div class="card border-info p-3 doctor-edit">
+                    <div class="card-header bg-info text-white">
+                        <h4>@Model.DoctorFirstName @Model.DoctorLastName</h4>
+                    </div>
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="card-body p-3 box-shadow" style="line-height:3;">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div class="form-group">
+                                    <h6>Email Address:</h6>
+                                    <input asp-for="DoctorEmailAddress" class="form-control" />
+                                    <span asp-validation-for="DoctorEmailAddress" class="text-danger"></span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-group">
+                                    <h6>Email Address:</h6>
+                                    <input asp-for="DoctorEmailAddress" class="form-control" readonly />
+                                    <span asp-validation-for="DoctorEmailAddress" class="text-danger"></span>
+                                </div>
+                            }
+                            <div class="form-group">
+                                <h6>Phone N0.:</h6>
+                                <input asp-for="DoctorPhoneNumber" class="form-control" />
+                                <span asp-validation-for="DoctorPhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <h6>Room No.:</h6>
+                                <input asp-for="RoomNumber" class="form-control" />
+                                <span asp-validation-for="RoomNumber" class="text-danger"></span>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <h6>Biography:</h6>
+                                    <textarea asp-for="Biography" class="form-control" rows="3" stye="width:100%;"></textarea>
+                                    <span asp-validation-for="Biography" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-info" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

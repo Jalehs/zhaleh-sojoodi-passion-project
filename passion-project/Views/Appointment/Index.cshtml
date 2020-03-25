@@ -1,0 +1,72 @@
+﻿@model IEnumerable<passion_project.ViewModel.Appointment.AppointmentVM>
+
+
+<style>
+    .table-bordered thead tr {
+        border: 2px solid #17a2b8;
+    }
+    .table-bordered thead tr th {
+        border: 2px solid #17a2b8;
+    }
+    .table-bordered tbody tr {
+        border: 2px solid #17a2b8;
+    }
+    .table-bordered tbody tr td {
+        border: 2px solid #17a2b8;
+    }
+    .fa-trash-alt, .fa-plus {
+        color: #17a2b8
+    }
+</style>
+<div class="container mt-5 mb-5">
+    <form class="form-inline" asp-controller="Appointment" asp-action="Index">
+        <div class="input-group mb-3" style="width:100%;">
+            <div class="input-group-prepend">
+                <button type="submit" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+            </div>
+            <input type="text" class="form-control" placeholder="Search By Patient Last Name"
+                   aria-label="" aria-describedby="basic-addon1" name="lastName" />
+        </div>
+        <table class="table table-bordered">
+            <thead class="alert-info">
+                <tr>
+                    <th>
+                        Patient Name
+                    </th>
+                    <th>
+                        Doctor Name
+                    </th>
+                    <th>
+                        Appointment Date
+                    </th>
+                    <th>
+                        Appointment Time
+                    </th>
+                    <th style="border-left:hidden;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.PatientFirstName @item.PatientLastName
+                        </td>
+                        <td>
+                            @item.DoctorFirstName @item.DoctorLastName
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.AppointmentId">@Convert.ToString(string.Format("{0:dd/MM/yyyy}", @item.AppointmentDate))</a>
+                        </td>
+                        <td>
+                            @item.AppointmentTime
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.AppointmentId"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+</div>

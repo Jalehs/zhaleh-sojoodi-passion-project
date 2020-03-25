@@ -1,0 +1,87 @@
+﻿@model passion_project.ViewModel.DoctorIndexVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+    .breadcrumb-item li{
+        font-size: 16px;
+    }
+    .breadcrumb-item a {
+        color: #17a2b8;
+    }
+
+    .fa-edit, .fa-trash-alt {
+        color: white;
+        font-size: 18px;
+    }
+    
+    .col img {
+        display: block;
+        margin: 10px auto;
+    }
+</style>
+<div class="container mt-3 mb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white">
+            <li class="breadcrumb-item"><a asp-controller="Doctor" asp-action="Index" asp-route-id="@Model.DoctorId">Doctors</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.DoctorFirstName @Model.DoctorLastName</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col">
+            <img src="@Url.Content(Model.ImageUrl)" class="card-img" alt="doctor-photo" style=" width:400px" />
+        </div>
+        <div class="col mt-5 mt-lg-0">
+            <div class="card border-info p-3">
+                <div class="card-header bg-info text-white">
+                    <div class="d-flex justify-content-between mb-2">
+                        <h4>@Model.DoctorFirstName @Model.DoctorLastName</h4>
+                        <div>
+                            @if (User.IsInRole("Admin") || (User.Identity.Name == Model.DoctorEmailAddress))
+                            {
+                                <a asp-action="Edit" asp-route-id="@Model.DoctorId"><i class="far fa-edit"></i></a>
+                            }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Delete" asp-route-id="@Model.DoctorId"><i class="fas fa-trash-alt"></i></a>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-3 box-shadow">
+                    <h6>Speciality : @Model.Speciality</h6>
+                    <h6>Room No. : @Model.RoomNumber</h6>
+                    <h6>Phone No.: @Model.DoctorPhoneNumber</h6>
+                    <h6> Email Address : @Model.DoctorEmailAddress</h6>
+                    <div class="card-body border-info p-3">
+                        <h4>Biography</h4><hr />
+                        <p>@Model.Biography</p>
+                    </div>
+                    @if ((User.Identity.Name != Model.DoctorEmailAddress) && !User.IsInRole("Admin"))
+                    {
+                      
+                        <a asp-controller="Appointment" asp-action="Create" asp-route-id="@Model.DoctorId" class="btn btn-info">MAKE APPOINTMENT </a>
+                    }
+                    else if (User.Identity.Name == Model.DoctorEmailAddress)
+                    {
+                        <a asp-controller="Appointment" asp-action="GetAppointmentsByDoctorId" asp-route-id="@Model.DoctorId" class="btn btn-info">Get Appointments</a>
+                    }
+                    else if (User.IsInRole("Admin"))
+                    {
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 mb-2">
+                                <a asp-controller="Appointment" asp-action="Create" asp-route-id="@Model.DoctorId" class="btn btn-info">Make An Appointment</a>
+                            </div>
+                            <div class="col-lg-12 col-md-12 mb-2">
+                                <a asp-controller="Appointment" asp-action="GetAppointmentsByDoctorId" asp-route-id="@Model.DoctorId" class="btn btn-info">Get Appointments</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

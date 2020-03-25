@@ -1,0 +1,82 @@
+﻿@model passion_project.ViewModel.Patient.PatientVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+    .fa-edit , .fa-trash-alt{
+        color:white;
+        font-size:18px;
+    }
+     .breadcrumb-item li{
+        font-size: 16px;
+    }
+    .breadcrumb-item a{
+        color:#17a2b8;
+    }
+</style>
+<div class="container mt-3 mb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white">
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="breadcrumb-item"><a asp-controller="Patient" asp-action="Index" asp-route-id="@Model.PatientId">Patients</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.PatientFirstName @Model.PatientLastName</li>
+            }
+
+        </ol>
+    </nav>
+    <div class="card border-info p-3">
+        <div class="card-header bg-info text-white">
+            <div class="d-flex justify-content-between mb-2">
+                <h2>@Model.PatientFirstName @Model.PatientLastName</h2>
+                <div>
+                    @if (User.IsInRole("Admin") || (User.Identity.Name == Model.PatientEmailAddress))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.PatientId"><i class="far fa-edit"></i></a>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@Model.PatientId"><i class="fas fa-trash-alt"></i></a>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="card-body border-info m-2">
+            <h3>Basic Information </h3>
+            <div class="card border-info p-3 box-shadow">
+                <div class="row" style="line-height:3.8">
+                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Name: @Model.PatientFirstName @Model.PatientLastName</h6>
+                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Health No.: @Model.Phn</h6>
+                </div>
+                <div class="row">
+                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Date of Birth: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.PatientBirthDate))</h6>
+                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Gender: @Model.PatientGender</h6>
+                </div>
+                <div class="row">
+                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Phone No.: @Model.PatientPhoneNumber</h6>
+                    <h6 class="col-md-6 col-sm-12" style="line-height:3">Email: @Model.PatientEmailAddress</h6>
+                </div>
+                <div class="row">
+                    <h6 class="col" style="line-height:3">Address: @Model.PatientAddress @Model.PatientCity   @Model.PatientPostalCode</h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-body border-info">
+            <h3>Patient History</h3>
+            <div class="card border-info p-3 box-shadow">
+                <p>@Model.PatientHistory</p>
+            </div>
+        </div>
+        @if (User.IsInRole("Admin") || User.Identity.Name == Model.PatientEmailAddress)
+        {
+            <div class="row pl-3">
+                <div class="col">
+                    <a asp-controller="Appointment" asp-action="GetAppointmentsByPatientId" asp-route-id="@Model.PatientId" class="btn btn-info">Get Appointments</a>
+                </div>
+            </div>
+            
+        }
+    </div>
+</div>

@@ -1,0 +1,107 @@
+﻿@model passion_project.ViewModel.Patient.PatientVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container mt-3 mb-3">
+    <div class="card border-info p-3 box-shadow">
+        @if (!User.IsInRole("Admin"))
+        {
+            <h4 class="alert-heading mb-5">Create your profile</h4>
+        }
+        <form method="post" enctype="multipart/form-data" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>First Name: </h6>
+                    <input asp-for="PatientFirstName" class="form-control" />
+                    <span asp-validation-for="PatientFirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Last Name:</h6>
+                    <input asp-for="PatientLastName" class="form-control" />
+                    <span asp-validation-for="PatientLastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Health No.:</h6>
+                    <input asp-for="Phn" class="form-control" />
+                    <span asp-validation-for="Phn" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Gender:</h6>
+                    <div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(m => m.PatientGender, "Male")
+                        <label class="form-check-label mr-4" asp-for="PatientGender">Male</label>
+                        @Html.RadioButtonFor(m => m.PatientGender, "Female")
+                        <label class="form-check-label" asp-for="PatientGender">Female</label>
+                    </div>
+                    <span asp-validation-for="PatientGender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Date Of Birth:</h6>
+                    <input asp-for="PatientBirthDate" class="form-control" />
+                    <span asp-validation-for="PatientBirthDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Phone Number:</h6>
+                    <input asp-for="PatientPhoneNumber" class="form-control" />
+                    <span asp-validation-for="PatientPhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="form-group col-md-6 col-sm-12">
+                        <h6>Email Address:</h6>
+                        <input asp-for="PatientEmailAddress" class="form-control" />
+                        <span asp-validation-for="PatientEmailAddress" class="text-danger"></span>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group col-md-6 col-sm-12">
+                        <h6>Email Address:</h6>
+                        <input asp-for="PatientEmailAddress" class="form-control" readonly value=@User.Identity.Name />
+                        <span asp-validation-for="PatientEmailAddress" class="text-danger"></span>
+                    </div>
+                }
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Address:</h6>
+                    <input asp-for="PatientAddress" class="form-control" />
+                    <span asp-validation-for="PatientAddress" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>City:</h6>
+                    <input asp-for="PatientCity" class="form-control" />
+                    <span asp-validation-for="PatientCity" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Postal Code:</h6>
+                    <input asp-for="PatientPostalCode" class="form-control" />
+                    <span asp-validation-for="PatientPostalCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <h6>Patient History:</h6>
+                    <textarea asp-for="PatientHistory" class="form-control" rows="3" stye="width:100%;"></textarea>
+                    <span asp-validation-for="PatientHistory" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-info" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

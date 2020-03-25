@@ -1,0 +1,86 @@
+﻿@model passion_project.ViewModel.DoctorCreateVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="container create-doctor mt-5 mb-5">
+    <div class="card border-info p-3 box-shadow">
+        @if (!User.IsInRole("Admin"))
+        {
+            <h4 class="alert-heading mb-5">Create your profile</h4>
+        }
+        <form method="post" enctype="multipart/form-data" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>First Name:</h6>
+                    <input asp-for="DoctorFirstName" class="form-control" />
+                    <span asp-validation-for="DoctorFirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Last Name:</h6>
+                    <input asp-for="DoctorLastName" class="form-control" />
+                    <span asp-validation-for="DoctorLastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <h6>Image File:</h6>
+                    <input asp-for="ImageFile" type="file" value="Upload" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Speciality:</h6>
+                    <input asp-for="Speciality" class="form-control" />
+                    <span asp-validation-for="Speciality" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Room No.:</h6>
+                    <input asp-for="RoomNumber" class="form-control" />
+                    <span asp-validation-for="RoomNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Phone No.:</h6>
+                    <input asp-for="DoctorPhoneNumber" class="form-control" />
+                    <span asp-validation-for="DoctorPhoneNumber" class="text-danger"></span>
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="form-group col-md-6 col-sm-12">
+                        <h6>Email Address:</h6>
+                        <input asp-for="DoctorEmailAddress" class="form-control" />
+                        <span asp-validation-for="DoctorEmailAddress" class="text-danger"></span>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group col-md-6 col-sm-12">
+                        <h6>Email Address:</h6>
+                        <input asp-for="DoctorEmailAddress" class="form-control" value="@User.Identity.Name" />
+                        <span asp-validation-for="DoctorEmailAddress" class="text-danger"></span>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <h6>Biography:</h6>
+                    <textarea asp-for="Biography" class="form-control" rows="3" stye="width:100%;"></textarea>
+                    <span asp-validation-for="Biography" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-info" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

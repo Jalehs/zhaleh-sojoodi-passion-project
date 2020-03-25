@@ -1,0 +1,36 @@
+﻿@model passion_project.ViewModel.Identity.UserRoleVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+    <div class="container mb-3 mt-5">
+        <div class="card border-info p-5">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    @Html.DropDownList("Email",
+                    new SelectList(ViewBag.UserSelectList, "Value", "Text", ViewBag.SelectedUser),
+                    "Select User", new { @id = "userDD", @class = "form-control" })
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Role" class="control-label"></label>
+                    @Html.DropDownList("Role",
+                    new SelectList(ViewBag.RoleSelectList, "Value", "Text"),
+                    "Select Role", new { @id = "roleDD", @class = "form-control" })
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-info" />
+                </div>
+            </form>
+       
+         </div>
+    </div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

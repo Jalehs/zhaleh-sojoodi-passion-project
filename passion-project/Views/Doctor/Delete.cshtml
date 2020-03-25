@@ -1,0 +1,26 @@
+﻿@model passion_project.ViewModel.DoctorIndexVM
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<style>
+    .delete {
+        display: block;
+        margin: 210px auto;
+        padding: 50px;
+        line-height: 4;
+    }
+</style>
+
+<div class="container">
+    <div class="card border-info delete">
+        <h3 class="text-center">Are you sure you want to delete @Model.DoctorFirstName @Model.DoctorLastName ? </h3>
+        <small class="text-center">Make sure to cancle all this doctor`s appointments first.</small>
+        <form asp-action="Delete" class="text-center">
+            <input type="hidden" asp-for="DoctorId" />
+            <input type="submit" value="Delete" class="btn btn-info" />
+            <a asp-action="Index" class="btn btn-info">Back to List</a>
+        </form>
+    </div>
+</div>

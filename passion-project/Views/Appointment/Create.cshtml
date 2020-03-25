@@ -1,0 +1,122 @@
+﻿@model passion_project.ViewModel.Appointment.AppointmentVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+<style>
+    .dropdown{
+        width:100%;
+        border-radius:5px;
+        padding:10px;
+    }
+       
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#timeAvailable').append($("<option></option>").val("placeholder").text("Select Time"));
+        $('#timeAvailable').val("placeholder");
+        $('#timeAvailable').addClass("dropdown");
+        $("#timeAvailable").prop("disabled", true);
+        $("#appointmentDate").change(function () {
+            var url = window.location.pathname;
+            var id = url.substring(url.lastIndexOf('/') + 1);
+            var options = {};
+            options.url = "/Appointment/GetAvailableTime";
+            options.type = "POST";
+            options.data = { id: id , selectedDate: $("#appointmentDate").val() };
+
+       
+            options.success = function (data) {
+                data = $.map(data, function (item, a) {
+                    return '<option value="' + item + '">' + item + "</option>";
+                });
+                 $("#timeAvailable").html(data.join(""));
+                 $("#timeAvailable").prop("disabled", false);
+            };
+            options.error = function () { alert("Error retrieving available appointments!"); };
+            $.ajax(options);
+        });
+    });
+</script>
+<div class="container mt-5">
+    <div class="card border-info p-3">
+        <h2 class="text-center p-3 mb-4">Book an Appointment</h2>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="PatientId" hidden />
+            <input asp-for="DoctorId" hidden />
+            <div class="row">
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="form-group col-md-4 col-sm-12">
+                        <h6>Patient First Name:</h6>
+                        <input asp-for="PatientFirstName" class="form-control" />
+                        <span asp-validation-for="PatientFirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <h6>Patient Last Name:</h6>
+                        <input asp-for="PatientLastName" class="form-control" />
+                        <span asp-validation-for="PatientLastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-4 col-sm-12">
+                        <h6>Patient Email Address:</h6>
+                        <input asp-for="PatientEmailAddress" class="form-control" />
+                        <span asp-validation-for="PatientEmailAddress" class="text-danger"></span>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group col-md-4 col-sm-12">
+                        <h6>Patient First Name:</h6>
+                        <input asp-for="PatientFirstName" class="form-control" value=@ViewBag.PatientFirstName  />
+                        <span asp-validation-for="PatientFirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <h6>Patient First Name:</h6>
+                        <input asp-for="PatientLastName" class="form-control" value=@ViewBag.PatientLastName   />
+                        <span asp-validation-for="PatientLastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <h6>Patient Email Address:</h6>
+                        <input asp-for="PatientEmailAddress" class="form-control" value="@User.Identity.Name"  />
+                        <span asp-validation-for="PatientEmailAddress" class="text-danger"></span>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Doctor First Name:</h6>
+                    <input asp-for="DoctorFirstName" class="form-control" />
+                    <span asp-validation-for="DoctorFirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Doctor Last Name:</h6>
+                    <input asp-for="DoctorLastName" class="form-control" />
+                    <span asp-validation-for="DoctorLastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Appointment Date: </h6>
+                    <input asp-for="AppointmentDate" class="form-control" id="appointmentDate"  />
+                    <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <h6>Appointment Time:</h6>
+                    @Html.DropDownListFor(x => x.AppointmentTime, new List<SelectListItem>(), new { @id = "timeAvailable" })
+                    @Html.ValidationMessageFor(model => model.AppointmentTime)
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-info" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

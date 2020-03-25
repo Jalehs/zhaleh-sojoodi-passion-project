@@ -1,0 +1,76 @@
+﻿@model IEnumerable<passion_project.ViewModel.Patient.PatientVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <style>
+        .table-bordered thead tr {
+            border: 2px solid #17a2b8;
+        }
+        .table-bordered thead tr th {
+            border: 2px solid #17a2b8;
+        }
+        .table-bordered tbody tr {
+            border: 2px solid #17a2b8;
+        }
+        .table-bordered tbody tr td {
+            border: 2px solid #17a2b8;
+        }
+        .fa-edit, .fa-trash-alt, .fa-plus, .fa-sort-alpha-up, .fa-sort-alpha-down {
+            color: #17a2b8;
+        }
+    </style>
+
+
+    <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-between">
+            <div>
+                <a asp-action="Index" asp-route-sortOrder="name-asc"><i class="fas fa-sort-alpha-up"></i></a>
+                <a asp-action="Index" asp-route-sortOrder="name-desc"><i class="fas fa-sort-alpha-down"></i></a>
+            </div>
+            <a asp-action="Create"><i class="fas fa-plus"></i></a>
+        </div>
+        <table class="table table-bordered">
+            <thead class="alert-info">
+                <tr>
+                    <th>
+                        Patient Name
+                    </th>
+                    <th>
+                        Health Number
+                    </th>
+                    <th>
+                        Phone Number
+                    </th>
+                    <th>
+                        Email Address
+                    </th>
+                    <th style="border-left: hidden;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.PatientId">@item.PatientFirstName @item.PatientLastName</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PatientPhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PatientEmailAddress)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.PatientId"><i class="fas fa-edit"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.PatientId"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
