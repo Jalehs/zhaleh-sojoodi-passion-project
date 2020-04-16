@@ -17,3 +17,6 @@ Doctor can edit the appointment to only add the appointment summary.
 Doctor has an access to all his appointments and from this page he can reach to the patient profile, as well.
 
 You can click <a href="https://drive.google.com/open?id=1M4fLpXDWICR3WgZcXzHhj_c52aT097Iq" >Demo </a> to watch the demo of my passion project.
+
+## ERD
+<img src="https://github.com/Jalehs/zhaleh-sojoodi-passion-project/blob/master/ERD.pdf" width="600px" height="350px" />
